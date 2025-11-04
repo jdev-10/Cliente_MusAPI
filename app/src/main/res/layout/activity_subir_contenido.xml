@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:padding="16dp"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- 🔙 Botón volver -->
+        <Button
+            android:id="@+id/btnVolver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="←"
+            android:textSize="18sp"
+            android:background="@android:color/transparent"
+            android:textColor="#000000"
+            android:layout_marginBottom="12dp" />
+
+        <!-- 🧾 Título -->
+        <TextView
+            android:id="@+id/txtTitulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Seleccione el tipo de contenido:"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#222222"
+            android:gravity="center"
+            android:layout_marginBottom="24dp" />
+
+        <!-- 🎵 Botones de acción: crear álbum o subir sencillo -->
+        <LinearLayout
+            android:id="@+id/layoutBotones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="24dp">
+
+            <Button
+                android:id="@+id/btnCrearAlbum"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Nuevo Álbum"
+                android:layout_marginEnd="8dp" />
+
+            <Button
+                android:id="@+id/btnSubirSencillo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Sencillo"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+
+        <!-- 📂 Título de álbumes pendientes -->
+        <TextView
+            android:id="@+id/txtPendientes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Álbumes pendientes"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:gravity="center"
+            android:layout_marginBottom="12dp" />
+
+        <!-- 📜 Lista de álbumes -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvAlbumesPendientes"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="#F0F0F0"
+            android:padding="8dp" />
+
+    </LinearLayout>
+</ScrollView>

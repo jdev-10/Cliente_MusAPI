@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainMenuAdmin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:padding="12dp">
+
+    <!-- Barra superior de búsqueda -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="20dp">
+
+        <Button
+            android:id="@+id/btnVolver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="⬅" />
+
+        <EditText
+            android:id="@+id/etBusquedaUsuarios"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="Buscar usuarios..."
+            android:padding="10dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="8dp"
+            android:background="@android:drawable/edit_text" />
+
+        <Button
+            android:id="@+id/btnBuscarUsuarios"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🔍" />
+    </LinearLayout>
+
+    <!-- Scroll del contenido del menú admin -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp">
+
+            <!-- Título -->
+            <TextView
+                android:id="@+id/tvTituloMenuAdmin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Menú Administrador"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Descripción -->
+            <TextView
+                android:id="@+id/tvDescripcionAdmin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Herramientas exclusivas para administradores"
+                android:textSize="16sp"
+                android:layout_marginBottom="24dp"
+                android:textAlignment="center" />
+
+            <!-- Botones del menú admin -->
+            <Button
+                android:id="@+id/btnCategoriasMusicales"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:text="Categorías musicales (CU 13 y 14)"
+                android:layout_marginBottom="12dp" />
+
+            <Button
+                android:id="@+id/btnReportes"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:text="Reportes (CU-15)"
+                android:layout_marginBottom="12dp" />
+
+            <Button
+                android:id="@+id/btnAdministrarUsuarios"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:text="Administrar usuarios"
+                android:layout_marginBottom="12dp" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

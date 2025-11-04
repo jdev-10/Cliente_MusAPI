@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:id="@+id/main"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@android:color/white">
+
+<!-- Scroll principal con todo el contenido -->
+<ScrollView
+    android:id="@+id/scrollPerfil"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:fillViewport="true"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toTopOf="@+id/layoutReproductor"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- 🔙 Botón de regreso -->
+        <Button
+            android:id="@+id/btnVolver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="Volver" />
+
+        <!-- 👤 Sección de datos del artista -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_marginBottom="24dp">
+
+            <!-- Foto de perfil -->
+            <ImageView
+                android:id="@+id/imgFoto"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="#F5F5F5"
+                android:contentDescription="Foto artista"
+                android:scaleType="centerCrop" />
+
+            <!-- Nombre real -->
+            <TextView
+                android:id="@+id/txtNombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Nombre del artista"
+                android:textColor="#333"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <!-- Nombre de usuario -->
+            <TextView
+                android:id="@+id/txtUsuario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@usuario"
+                android:textColor="#666"
+                android:textSize="16sp" />
+
+            <!-- Descripción -->
+            <TextView
+                android:id="@+id/txtDescripcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:lineSpacingExtra="4dp"
+                android:text="Descripción del artista"
+                android:textColor="#444"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <!-- 🎛 Menú si el perfil es del artista actual (tú mismo) -->
+        <LinearLayout
+            android:id="@+id/menuArtista"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:weightSum="3">
+
+            <Button
+                android:id="@+id/btnSubirContenido"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="+Contenido" />
+
+            <Button
+                android:id="@+id/btnEstadisticas"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:layout_weight="1"
+                android:text="Estadísticas" />
+
+            <Button
+                android:id="@+id/btnEditarPerfil"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Editar" />
+        </LinearLayout>
+
+        <!-- 👀 Menú si el perfil es de otro artista (oyente viendo a alguien más) -->
+        <LinearLayout
+            android:id="@+id/menuOyente"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/btnSeguir"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Seguir" />
+
+            <Button
+                android:id="@+id/btnEvaluar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_weight="1"
+                android:text="⭐ Valorar" />
+        </LinearLayout>
+
+        <!-- 💬 Botón para abrir el chat -->
+        <Button
+            android:id="@+id/btnChat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="Iniciar Chat" />
+
+        <!-- 🎵 Álbumes del artista -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="Álbumes"
+            android:textColor="#333"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvAlbumes"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginBottom="24dp" />
+
+        <!-- 🎶 Sencillos del artista -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="Sencillos"
+            android:textColor="#333"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSencillos"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+    </LinearLayout>
+</ScrollView>
+
+<!-- 🎧 Reproductor fijo abajo -->
+<include
+    android:id="@+id/layoutReproductor"
+    layout="@layout/layout_reproductor"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

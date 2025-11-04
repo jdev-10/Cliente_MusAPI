@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:id="@+id/crearPerfilLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- Título -->
+        <TextView
+            android:id="@+id/txtTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Crear Perfil de Artista"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Imagen (placeholder + cargada) -->
+        <ImageView
+            android:id="@+id/imgFotoPerfil"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:background="#CCCCCC"
+            android:contentDescription="Foto de perfil"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Botón subir foto -->
+        <Button
+            android:id="@+id/btnSubirFoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Subir foto" />
+
+        <!-- Descripción -->
+        <TextView
+            android:id="@+id/txtDescripcionLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Descripción"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/etDescripcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Escribe una descripción pública..."
+            android:maxLength="100"
+            android:background="@android:drawable/editbox_background"
+            android:padding="12dp" />
+
+        <!-- Mensaje adicional -->
+        <TextView
+            android:id="@+id/txtInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Esta descripción es pública"
+            android:textSize="14sp"
+            android:layout_marginTop="8dp" />
+
+        <!-- Botón confirmar -->
+        <Button
+            android:id="@+id/btnConfirmar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Confirmar"
+            android:layout_marginTop="32dp" />
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:gravity="center_horizontal">
+
+        <!-- Cabecera con botón volver y título -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="20dp">
+
+            <Button
+                android:id="@+id/btnVolver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="←" />
+
+            <TextView
+                android:id="@+id/tvTitulo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Categorías Musicales"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:paddingEnd="40dp" />
+        </LinearLayout>
+
+        <!-- Botón nueva categoría -->
+        <Button
+            android:id="@+id/btnNuevaCategoria"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="Nueva Categoría"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Contenedor para categorías -->
+        <LinearLayout
+            android:id="@+id/layoutCategorias"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </LinearLayout>
+</ScrollView>

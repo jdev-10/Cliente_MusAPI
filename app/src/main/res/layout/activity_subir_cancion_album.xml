@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Subir Canción a Álbum"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp" />
+
+        <EditText
+            android:id="@+id/etNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:hint="Nombre de la canción"
+            android:padding="8dp" />
+
+        <Spinner
+            android:id="@+id/spCategorias"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:layout_marginTop="12dp"
+            android:padding="8dp" />
+
+        <Button
+            android:id="@+id/btnSeleccionarAudio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="Seleccionar audio"
+            android:layout_marginTop="16dp"
+            android:paddingHorizontal="16dp" />
+
+        <TextView
+            android:id="@+id/tvAudioSeleccionado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ningún archivo seleccionado"
+            android:layout_marginTop="8dp" />
+
+        <Button
+            android:id="@+id/btnSubir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="Subir canción"
+            android:layout_marginTop="24dp"
+            android:paddingHorizontal="16dp" />
+
+    </LinearLayout>
+</ScrollView>

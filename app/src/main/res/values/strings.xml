@@ -1,0 +1,114 @@
+<resources>
+    <!-- App name -->
+    <string name="app_name">MusAPI</string>
+
+    <!-- Inicio de sesión -->
+    <string name="correo">Correo electrónico</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="iniciar_sesion">Iniciar sesión</string>
+    <string name="login_titulo">Iniciar sesión</string>
+    <string name="salir">Salir</string>
+
+    <!-- Registro -->
+    <string name="nombre">Nombre</string>
+    <string name="nombre_usuario">Nombre de usuario</string>
+    <string name="pais">País</string>
+    <string name="registrar">Registrar</string>
+    <string name="ir_a_registro">¿No tienes cuenta? Regístrate</string>
+    <string name="logo_desc">Logo de MusAPI</string>
+    <string name="registrar_titulo">Registrar</string>
+    <string name="cancelar">Cancelar</string>
+    <string-array name="tipos_contenido">
+        <item>Canción</item>
+        <item>Álbum</item>
+    </string-array>
+
+
+    <string-array name="tipos_reporte">
+        <item>Usuarios</item>
+        <item>Canciones</item>
+        <item>Artistas</item>
+    </string-array>
+
+    <!-- Menú Principal -->
+    <string name="menu_principal_titulo">MENÚ PRINCIPAL</string>
+    <string name="menu_opcion_administracion">Administración</string>
+    <string name="menu_opcion_buscar">Buscar contenido</string>
+    <string name="menu_opcion_perfil_artista">Perfil de artista</string>
+    <string name="menu_opcion_perfil_usuario">Perfil de usuario</string>
+    <string name="menu_opcion_crear_album">Crear álbum</string>
+    <string name="menu_opcion_crear_lista">Crear lista de reproducción</string>
+    <string name="menu_opcion_cerrar_sesion">Cerrar sesión</string>
+    <string name="menu_opcion_salir_app">Salir de la app</string>
+    <string name="hint_buscar">Buscar…</string>
+    <string name="label_albumes">Álbumes</string>
+    <string name="label_listas">Listas</string>
+    <string name="label_artistas">Artistas</string>
+    <string name="desc_cerrar_sesion">Cerrar sesión</string>
+    <string name="desc_buscar">Buscar contenido</string>
+    <string name="desc_administracion">Abrir administración</string>
+    <string name="desc_perfil_usuario">Ver perfil de usuario</string>
+    <string name="desc_crear_lista">Crear lista de reproducción</string>
+    <string name="desc_volver">Volver</string>
+    <string name="seguir">Seguir</string>
+
+    <!-- Perfil Usuario -->
+    <string name="placeholder_user_name">Nombre Usuario</string>
+    <string name="placeholder_user_handle">@nombre_de_usuario</string>
+    <string name="btn_crear_perfil_artista">Crear perfil de artista</string>
+    <string name="btn_ver_perfil_artista">Ver perfil de artista</string>
+    <string name="btn_ver_estadisticas">Estadísticas</string>
+    <string name="btn_editar_perfil">Editar perfil</string>
+    <string name="profile_listas_title">Listas de reproducción</string>
+    <string name="desc_volver_artista">Volver</string>
+    <string name="default_nombre_artista">Nombre Artista</string>
+    <string name="default_handle_artista">@handle_artista</string>
+    <string name="default_desc_artista">Descripción del artista...</string>
+    <string name="perfil_artista_titulo">Perfil artista</string>
+    <string name="nombre_label">Nombre</string>
+    <string name="usuario_label">Usuario</string>
+    <string name="desc_evaluar_artista">Evaluar artista</string>
+    <string name="desc_crear_album">Crear álbum</string>
+    <string name="desc_subir_contenido">Subir contenido</string>
+
+    <!-- editar perfil -->
+    <string name="editar_perfil_titulo">Editar perfil</string>
+    <string name="subir_foto">Subir foto</string>
+    <string name="nombre_perfil_label">Nombre de perfil</string>
+    <string name="nombre_perfil_hint">Introduce el nombre público</string>
+    <string name="descripcion_label">Descripción</string>
+    <string name="descripcion_hint">Describe tu perfil</string>
+    <string name="pais_label">País</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="desc_foto_perfil">Foto de perfil del usuario</string>
+    <string name="desc_subir_foto">Subir nueva foto de perfil</string>
+    <string name="desc_nombre_perfil">Campo para editar nombre público</string>
+    <string name="desc_descripcion">Campo para editar descripción personal</string>
+    <string name="desc_pais">Selector de país de residencia</string>
+    <string name="desc_confirmar">Confirmar cambios en el perfil</string>
+
+    <!-- mensajes de error / validación -->
+    <string name="error_campos_invalidos">Por favor rellena todos los campos correctamente</string>
+    <string name="error_nombre_vacio">El nombre no puede quedar vacío</string>
+    <string name="error_pais_requerido">Debes seleccionar un país</string>
+    <string name="perfil_editado_ok">Perfil editado con éxito</string>
+    <string name="error_servidor">Error en el servidor, inténtalo más tarde</string>
+    <string name="crear_perfil">Crear Perfil</string>
+
+    <!-- Búsqueda -->
+    <string name="error_busqueda_vacia">Introduce un término de búsqueda</string>
+    <string name="no_resultados_cancion">No se encontraron canciones para “%1$s”</string>
+    <string name="no_resultados_album">No se encontraron álbumes para “%1$s”</string>
+    <string name="no_resultados_artista">No se encontraron artistas para “%1$s”</string>
+    <string name="resultados">Resultados</string>
+
+    <!-- Conexión / servidor -->
+    <string name="error_conexion">Error de conexión, comprueba tu red</string>
+
+    <!-- Descripción para el botón de Chat -->
+    <string name="desc_chat">Abrir chat con el artista</string>
+
+    <string name="categorias_musicales">Categorias musicales:</string>
+    <string name="registrar_categoria_musical">Registrar categoria musical</string>
+
+</resources>

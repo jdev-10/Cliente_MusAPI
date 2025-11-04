@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Permiso esencial para llamadas a tu API y carga de imágenes -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MusAPIApp"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".activities.perfiles.estadisticas.EstadisticasContenidoSubidoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.contenido.EliminarUsuarioActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.busqueda.BusquedaUsuarioActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.menu.MenuAdminActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.menu.ReportesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.contenido.SubirCancionAlbumActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.contenido.DetalleCancionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.contenido.ReproductorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.perfiles.chat.ChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.menu.CategoriasMusicalesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.menu.CategoriaMusicalFormActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.contenido.SubirCancionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.contenido.CrearAlbumActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.contenido.SubirContenidoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.perfiles.estadisticas.EstadisticasConsumoPersonalActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.perfiles.CrearPerfilArtistaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.perfiles.EditarPerfilActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.contenido.AlbumDetalleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.contenido.AlbumDetalle"
+            android:exported="false" />
+        <activity
+            android:name=".activities.contenido.ListaDetalleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.contenido.CrearListaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.busqueda.BusquedaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.perfiles.PerfilUsuarioActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.perfiles.PerfilArtistaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.VentanaPrincipal"
+            android:exported="false" />
+        <activity
+            android:name=".activities.menu.MenuPrincipalActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.inicio.RegistroActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.inicio.InicioSesionActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
