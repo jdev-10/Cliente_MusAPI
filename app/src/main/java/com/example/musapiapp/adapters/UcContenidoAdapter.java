@@ -27,6 +27,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,7 +87,8 @@ public class UcContenidoAdapter<T> extends RecyclerView.Adapter<UcContenidoAdapt
         private final ImageView imgFoto;
         private final TextView tvNombre;
         private final TextView tvAutor;
-        private final Button btnGuardar, btnDetalles, btnReproducir;
+        private final MaterialButton btnGuardar;
+        private final Button btnDetalles;
         private BusquedaAlbumDTO albumPublico;
         private InfoAlbumDTO albumPendiente;
         private ListaDeReproduccionDTO lista;
@@ -98,7 +100,6 @@ public class UcContenidoAdapter<T> extends RecyclerView.Adapter<UcContenidoAdapt
             tvAutor = itemView.findViewById(R.id.tvAutor);
             btnGuardar = itemView.findViewById(R.id.btnGuardar);
             btnDetalles = itemView.findViewById(R.id.btnDetalles);
-            btnReproducir = itemView.findViewById(R.id.btnReproducir);
         }
 
         public void bind(T item) {
@@ -123,15 +124,12 @@ public class UcContenidoAdapter<T> extends RecyclerView.Adapter<UcContenidoAdapt
                     autor = "@" + art.getNombreUsuario();
                     urlFoto = art.getUrlFoto();
                     btnGuardar.setText("Seguir");
-                    btnReproducir.setVisibility(View.GONE);
                     break;
                 case "LISTA":
-
                     ListaDeReproduccionDTO l = (ListaDeReproduccionDTO) item;
                     nombre = l.getNombre();
                     urlFoto = l.getUrlFoto();
                     lista = l;
-                    Log.e("Lista", "Lista "+ lista.getNombre()+" con foto "+ lista.getUrlFoto());
                     tvAutor.setVisibility(View.GONE);
                     break;
                 case "ALBUM_PENDIENTE":
@@ -140,7 +138,6 @@ public class UcContenidoAdapter<T> extends RecyclerView.Adapter<UcContenidoAdapt
                     urlFoto = albumPendiente.getUrlFoto();
                     tvAutor.setVisibility(View.GONE);
                     btnGuardar.setVisibility(View.GONE);
-                    btnReproducir.setVisibility(View.GONE);
                     break;
                 case "USUARIO_ADMIN":
                     BusquedaUsuarioDTO u = (BusquedaUsuarioDTO) item;
@@ -148,7 +145,6 @@ public class UcContenidoAdapter<T> extends RecyclerView.Adapter<UcContenidoAdapt
                     autor = u.getNombreUsuario() + " • " + u.getPais();
                     urlFoto = null;
                     btnGuardar.setVisibility(View.GONE);
-                    btnReproducir.setVisibility(View.GONE);
                     btnDetalles.setText("Eliminar");
                     break;
             }
@@ -163,9 +159,24 @@ public class UcContenidoAdapter<T> extends RecyclerView.Adapter<UcContenidoAdapt
             }
 
             btnGuardar.setVisibility(showSave ? View.VISIBLE : View.GONE);
+
+            // Listeners de los botones pequeños
             btnGuardar.setOnClickListener(v -> onClickGuardar(item));
             btnDetalles.setOnClickListener(v -> onClickDetalles(item));
-            btnReproducir.setOnClickListener(v -> onClickReproducir(item));
+
+            // NUEVO: Listener en toda la fila (itemView)
+            // Reemplaza al btnReproducir
+            itemView.setOnClickListener(v -> {
+                // Si es un tipo reproducible, reproduce.
+                if (tipo.equals("CANCION") || tipo.equals("ALBUM") || tipo.equals("LISTA")) {
+                    onClickReproducir(item);
+                }
+                // Si es un artista, usuario o pendiente (que no se reproducen),
+                // hacemos que el clic abra los detalles para no dejar el clic "muerto".
+                else {
+                    onClickDetalles(item);
+                }
+            });
         }
 
         private void onClickGuardar(T item) {
@@ -189,11 +200,9 @@ public class UcContenidoAdapter<T> extends RecyclerView.Adapter<UcContenidoAdapt
 
                                 if (listas == null || listas.isEmpty()) {
                                     Toast.makeText(context, "No tienes listas. Crea una primero.", Toast.LENGTH_LONG).show();
-                                    //context.startActivity(new Intent(context, CrearListaActivity.class));
                                     return;
                                 }
 
-                                // Mostrar el diálogo
                                 new SeleccionarListaDialogFragment(listas, listaSeleccionada -> {
                                     BusquedaCancionDTO cancion = (BusquedaCancionDTO) item;
 
@@ -208,6 +217,7 @@ public class UcContenidoAdapter<T> extends RecyclerView.Adapter<UcContenidoAdapt
                                         public void onResponse(Call<RespuestaCliente> call, Response<RespuestaCliente> response) {
                                             if (response.isSuccessful()) {
                                                 Toast.makeText(context, "Canción agregada a la lista", Toast.LENGTH_SHORT).show();
+                                                btnGuardar.setIconResource(R.drawable.ic_save_full);
                                             } else {
                                                 Toast.makeText(context, "Error al agregar canción", Toast.LENGTH_SHORT).show();
                                             }
@@ -229,7 +239,6 @@ public class UcContenidoAdapter<T> extends RecyclerView.Adapter<UcContenidoAdapt
                         });
             }
 
-
             ContenidoGuardadoDTO dto = new ContenidoGuardadoDTO();
             dto.setIdUsuario(SesionUsuario.getIdUsuario());
             dto.setTipoDeContenido(tipo);
@@ -248,28 +257,32 @@ public class UcContenidoAdapter<T> extends RecyclerView.Adapter<UcContenidoAdapt
                     return;
             }
 
-            ApiCliente.getClient().create(ContenidoGuardadoServicio.class)
-                    .guardarContenido(dto)
-                    .enqueue(new Callback<RespuestaApi<String>>() {
-                        @Override
-                        public void onResponse(Call<RespuestaApi<String>> call, Response<RespuestaApi<String>> response) {
-                            if (response.isSuccessful() && response.body() != null) {
-                                String mensaje = response.body().getMensaje();
-                                Toast.makeText(context, mensaje, Toast.LENGTH_SHORT).show();
-                                if (mensaje.equals("Contenido guardado exitosamente")) {
-                                    btnGuardar.setVisibility(View.GONE);
+            if (!tipo.equals("CANCION")) {
+                ApiCliente.getClient().create(ContenidoGuardadoServicio.class)
+                        .guardarContenido(dto)
+                        .enqueue(new Callback<RespuestaApi<String>>() {
+                            @Override
+                            public void onResponse(Call<RespuestaApi<String>> call, Response<RespuestaApi<String>> response) {
+                                if (response.isSuccessful() && response.body() != null) {
+                                    String mensaje = response.body().getMensaje();
+                                    Toast.makeText(context, mensaje, Toast.LENGTH_SHORT).show();
+                                    if (mensaje.equals("Contenido guardado exitosamente")) {
+                                        btnGuardar.setVisibility(View.GONE);
+                                        btnGuardar.setIconResource(R.drawable.ic_save_full);
+                                    }
                                 }
                             }
-                        }
 
-                        @Override
-                        public void onFailure(Call<RespuestaApi<String>> call, Throwable t) {
-                            ManejoErrores.mostrarToastError(context, t);
-                        }
-                    });
+                            @Override
+                            public void onFailure(Call<RespuestaApi<String>> call, Throwable t) {
+                                ManejoErrores.mostrarToastError(context, t);
+                            }
+                        });
+            }
         }
 
         private void onClickDetalles(T item) {
+            // (Sin cambios en este método...)
             Intent intent = null;
             switch (tipo) {
                 case "CANCION":
@@ -291,7 +304,6 @@ public class UcContenidoAdapter<T> extends RecyclerView.Adapter<UcContenidoAdapt
                     break;
                 case "LISTA":
                     intent = new Intent(context, ListaDetalleActivity.class);
-                    Log.e("Lista adapter", "Lista "+ lista.getNombre()+" con foto "+ lista.getUrlFoto());
                     intent.putExtra("lista", new Gson().toJson(lista));
                     break;
                 case "USUARIO_ADMIN":

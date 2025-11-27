@@ -12,9 +12,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class Constantes {
-    public static final String PUERTO   = "8080";
+    public static final String PUERTO   = "8088";
     // En el emulador 10.0.2.2 apunta a tu localhost
-    public static final String URL_BASE = "http://192.168.160.244:"+PUERTO;
+    public static final String URL_BASE = "http://192.168.1.68:"+PUERTO;
     public static final String URL_API  = URL_BASE + "/api/";
 
     @SuppressLint("StaticFieldLeak")

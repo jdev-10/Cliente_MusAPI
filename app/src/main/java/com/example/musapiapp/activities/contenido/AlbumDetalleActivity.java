@@ -48,7 +48,8 @@ public class AlbumDetalleActivity extends AppCompatActivity {
     private ImageView imgPortada;
     private TextView txtTitulo, txtAutor, txtFecha;
     private RecyclerView rvCanciones;
-    private Button btnAgregarCancion, btnCerrar, btnPublicar, btnEditar;
+    private Button btnAgregarCancion, btnPublicar, btnEditar;
+    private ImageButton btnRegresar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,7 @@ public class AlbumDetalleActivity extends AppCompatActivity {
             cargarInformacionAlbumPendiente();
         }
 
-        btnCerrar.setOnClickListener(v -> finish());
+        btnRegresar.setOnClickListener(v -> finish());
         btnEditar.setOnClickListener(v -> {
             Intent intent = new Intent(this, CrearAlbumActivity.class);
             intent.putExtra("album", new Gson().toJson(albumPublico));
@@ -83,7 +84,7 @@ public class AlbumDetalleActivity extends AppCompatActivity {
         rvCanciones = findViewById(R.id.rvCanciones);
         rvCanciones.setLayoutManager(new LinearLayoutManager(this));
         btnAgregarCancion = findViewById(R.id.btnAgregarCancion);
-        btnCerrar = findViewById(R.id.btnCerrar);
+        btnRegresar = findViewById(R.id.btnRegresar);
         btnEditar = findViewById(R.id.btnEditarAlbum);
         btnPublicar = findViewById(R.id.btnPublicarAlbum);
     }
