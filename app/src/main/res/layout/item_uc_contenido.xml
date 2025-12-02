@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/layoutItemCancion"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:gravity="center_vertical"
     android:padding="8dp"
     android:layout_marginBottom="8dp"
-    android:background="@drawable/fondo_item_naranja"
+    android:background="@drawable/fondo_item_gris"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground">
@@ -22,11 +21,11 @@
 
         <ImageView
             android:id="@+id/imgFoto"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_album"
-            android:background="#CCCCCC" />
+            android:background="#333333" />
     </androidx.cardview.widget.CardView>
 
     <LinearLayout
@@ -40,7 +39,7 @@
             android:id="@+id/tvNombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Título canción muy largo para probar el corte"
+            android:text="Título"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -51,8 +50,8 @@
             android:id="@+id/tvAutor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Artista"
-            android:textColor="#FFE0B2"
+            android:text="Subtítulo"
+            android:textColor="#ABFFBD"
             android:textSize="14sp"
             android:maxLines="1"
             android:ellipsize="end" />
@@ -70,7 +69,7 @@
             android:layout_width="36dp"
             android:layout_height="36dp"
             app:icon="@drawable/ic_save"
-            app:iconTint="#FFFFFF"
+            app:iconTint="#000000"
             android:background="@drawable/fondo_boton_secundario"
             app:backgroundTint="@null"
             app:cornerRadius="18dp"
@@ -79,29 +78,23 @@
             android:padding="0dp"
             app:iconGravity="textStart"
             app:iconPadding="0dp"
-            android:layout_marginEnd="8dp"
-            android:tooltipText="Guardar" />
+            android:layout_marginEnd="8dp" />
 
         <Button
             android:id="@+id/btnDetalles"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:text="i"
-            android:textSize="18sp"
-            android:textStyle="bold|italic"
-            android:fontFamily="serif"
-            android:textColor="#FFFFFF"
+            app:icon="@drawable/ic_opciones"
+            app:iconTint="#000000"
             android:background="@drawable/fondo_boton_secundario"
             app:backgroundTint="@null"
             app:cornerRadius="18dp"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:padding="0dp"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
             android:minWidth="0dp"
-            android:minHeight="0dp"
-            android:includeFontPadding="false"
-            android:tooltipText="Detalles" />
-
+            android:minHeight="0dp" />
     </LinearLayout>
-
 </LinearLayout>

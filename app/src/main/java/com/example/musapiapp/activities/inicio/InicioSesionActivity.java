@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +27,8 @@ import retrofit2.Response;
 public class InicioSesionActivity extends AppCompatActivity {
 
     private EditText etCorreo, etContrasenia;
-    private Button btnLogin, btnRegister, btnExit;
+    private Button btnLogin, btnExit; // btnRegister sale de aquí
+    private TextView btnRegister;     // Y se declara como TextView independiente
     private UsuarioServicio usuarioServicio;
 
     @Override

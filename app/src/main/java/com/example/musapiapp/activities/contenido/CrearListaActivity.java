@@ -11,6 +11,9 @@ import android.widget.*;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.example.musapiapp.R;
 import com.example.musapiapp.dto.ListaDeReproduccionDTO;
@@ -40,6 +43,8 @@ public class CrearListaActivity extends AppCompatActivity {
     private EditText etNombre, etDescripcion;
     private ImageView imgPortada;
     private Button btnSubirFoto, btnGuardar, btnCancelar;
+    private ImageButton btnVolver;
+
 
     private Uri uriImagenSeleccionada = null;
     private boolean esEdicion = false;
@@ -50,12 +55,19 @@ public class CrearListaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_lista);
 
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+
         etNombre = findViewById(R.id.etNombreLista);
         etDescripcion = findViewById(R.id.etDescripcion);
         imgPortada = findViewById(R.id.imgPortada);
         btnSubirFoto = findViewById(R.id.btnSeleccionarFoto);
         btnGuardar = findViewById(R.id.btnGuardar);
         btnCancelar = findViewById(R.id.btnCancelar);
+        btnVolver = findViewById(R.id.btnVolver);
 
         // Verificar si estamos editando
         if (getIntent().hasExtra("lista")) {
@@ -67,6 +79,7 @@ public class CrearListaActivity extends AppCompatActivity {
         btnSubirFoto.setOnClickListener(v -> abrirGaleria());
         btnGuardar.setOnClickListener(v -> guardarLista());
         btnCancelar.setOnClickListener(v -> finish());
+        btnVolver.setOnClickListener(v -> finish());
     }
 
     private void cargarDatosParaEditar() {

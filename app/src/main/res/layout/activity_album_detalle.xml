@@ -80,7 +80,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Título:"
-                    android:textColor="#DBB0FF"
+                    android:textColor="#ABFFBD"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -97,7 +97,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Autor:"
-                    android:textColor="#DBB0FF"
+                    android:textColor="#ABFFBD"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -114,7 +114,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Fecha de publicación:"
-                    android:textColor="#DBB0FF"
+                    android:textColor="#ABFFBD"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -132,7 +132,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:text="Canciones del álbum:"
-                    android:textColor="#DBB0FF"
+                    android:textColor="#ABFFBD"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -159,7 +159,7 @@
                         android:paddingHorizontal="16dp"
                         android:paddingVertical="10dp"
                         android:text="Agregar +"
-                        android:textColor="#FFFFFF"
+                        android:textColor="#000000"
                         android:visibility="gone"
                         app:backgroundTint="@null" />
 

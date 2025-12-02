@@ -44,8 +44,8 @@ import retrofit2.Response;
 
 public class PerfilUsuarioActivity extends AppCompatActivity {
     private TextView txtNombre, txtUsuario;
-    private Button btnVolver, btnCrearPerfilArtista, btnVerPerfilArtista,
-            btnVerEstadisticas, btnEditarPerfil;
+    private ImageButton btnVolver;
+    private Button btnCrearPerfilArtista, btnVerPerfilArtista, btnVerEstadisticas, btnEditarPerfil;
     private RecyclerView rvListas;
     private ListaServicio listaServicio;
     private Gson gson = new Gson();

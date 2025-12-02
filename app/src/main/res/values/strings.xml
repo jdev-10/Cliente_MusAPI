@@ -5,18 +5,18 @@
     <!-- Inicio de sesión -->
     <string name="correo">Correo electrónico</string>
     <string name="contrasena">Contraseña</string>
-    <string name="iniciar_sesion">Iniciar sesión</string>
-    <string name="login_titulo">Iniciar sesión</string>
+    <string name="iniciar_sesion">Iniciar Sesión</string>
+    <string name="login_titulo">Inicio de Sesión</string>
     <string name="salir">Salir</string>
+    <string name="texto_registrarse_subrayado">¿No tienes cuenta? <u>Regístrate</u></string>
 
     <!-- Registro -->
     <string name="nombre">Nombre</string>
     <string name="nombre_usuario">Nombre de usuario</string>
     <string name="pais">País</string>
     <string name="registrar">Registrar</string>
-    <string name="ir_a_registro">¿No tienes cuenta? Regístrate</string>
     <string name="logo_desc">Logo de MusAPI</string>
-    <string name="registrar_titulo">Registrar</string>
+    <string name="registrar_titulo">Registro de Cuenta</string>
     <string name="cancelar">Cancelar</string>
     <string-array name="tipos_contenido">
         <item>Canción</item>
