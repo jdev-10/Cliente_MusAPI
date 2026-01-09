@@ -1,6 +1,8 @@
 package com.example.musapiapp.dialogs;
 
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.*;
@@ -33,7 +35,10 @@ public class DialogEvaluarArtista extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
         return dialog;
     }
 
@@ -47,12 +52,17 @@ public class DialogEvaluarArtista extends DialogFragment {
         LinearLayout layoutEstrellas = view.findViewById(R.id.layoutEstrellas);
         EditText etComentario = view.findViewById(R.id.etComentario);
         Button btnEnviar = view.findViewById(R.id.btnEnviar);
+        Button btnCancelar = view.findViewById(R.id.btnCancelar);
 
-        // Cargar 5 estrellas
         for (int i = 1; i <= 5; i++) {
             ImageView estrella = new ImageView(requireContext());
-            estrella.setImageResource(android.R.drawable.btn_star_big_off);
-            estrella.setPadding(8, 8, 8, 8);
+            
+            estrella.setImageResource(R.drawable.ic_star_outline);
+            
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100, 100);
+            params.setMargins(8, 0, 8, 0);
+            estrella.setLayoutParams(params);
+            
             estrella.setTag(i);
             estrella.setOnClickListener(v -> {
                 calificacion = (int) v.getTag();
@@ -60,6 +70,8 @@ public class DialogEvaluarArtista extends DialogFragment {
             });
             layoutEstrellas.addView(estrella);
         }
+
+        btnCancelar.setOnClickListener(v -> dismiss());
 
         btnEnviar.setOnClickListener(v -> {
             if (calificacion == 0) {
@@ -103,9 +115,12 @@ public class DialogEvaluarArtista extends DialogFragment {
         for (int i = 0; i < layoutEstrellas.getChildCount(); i++) {
             ImageView estrella = (ImageView) layoutEstrellas.getChildAt(i);
             if (i < calificacion) {
-                estrella.setImageResource(android.R.drawable.btn_star_big_on);
+                
+                estrella.setImageResource(R.drawable.ic_star_filled);
+                estrella.setColorFilter(Color.parseColor("#ABFFBD"));
             } else {
-                estrella.setImageResource(android.R.drawable.btn_star_big_off);
+                estrella.setImageResource(R.drawable.ic_star_outline);
+                estrella.setColorFilter(Color.GRAY);
             }
         }
     }

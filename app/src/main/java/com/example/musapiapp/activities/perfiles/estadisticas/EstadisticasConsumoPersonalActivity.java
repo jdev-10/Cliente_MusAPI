@@ -2,7 +2,7 @@ package com.example.musapiapp.activities.perfiles.estadisticas;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +26,7 @@ public class EstadisticasConsumoPersonalActivity extends AppCompatActivity {
 
     private int idUsuario;
     private TextView tvArtistas, tvCanciones, tvTiempo, tvFechaInicio, tvFechaFin;
-    private Button btnVolver;
+    private ImageButton btnVolver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +40,7 @@ public class EstadisticasConsumoPersonalActivity extends AppCompatActivity {
         tvTiempo = findViewById(R.id.tvTiempo);
         tvFechaInicio = findViewById(R.id.tvFechaInicio);
         tvFechaFin = findViewById(R.id.tvFechaFin);
+        
         btnVolver = findViewById(R.id.btnVolver);
 
         btnVolver.setOnClickListener(v -> finish());
@@ -81,7 +82,7 @@ public class EstadisticasConsumoPersonalActivity extends AppCompatActivity {
                     }
                     tvArtistas.setText(sb.toString().trim());
                 } else {
-                    tvArtistas.setText("Ningún artista registrado");
+                    tvArtistas.setText("Ningún artista registrado en este periodo.");
                 }
 
                 // Canciones
@@ -93,14 +94,14 @@ public class EstadisticasConsumoPersonalActivity extends AppCompatActivity {
                     }
                     tvCanciones.setText(sb.toString().trim());
                 } else {
-                    tvCanciones.setText("Ninguna canción registrada");
+                    tvCanciones.setText("Ninguna canción registrada en este periodo.");
                 }
 
                 // Tiempo
                 long segundos = dto.getSegundosEscuchados();
                 long min = segundos / 60;
                 long seg = segundos % 60;
-                tvTiempo.setText(min + " minutos y " + seg + " segundos");
+                tvTiempo.setText(min + " min " + seg + " seg");
             }
 
             @Override

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout 
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
@@ -33,13 +33,13 @@
             app:layout_constraintBottom_toBottomOf="parent" />
 
         <TextView
-            android:layout_width="0dp"
+            android:id="@+id/txtTituloHeader"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Crear Nueva Lista"
+            android:text="Gestión de Lista"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:gravity="center"
             app:layout_constraintStart_toEndOf="@id/btnVolver"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -62,8 +62,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center_vertical"
-            android:paddingBottom="24dp">
+            android:gravity="center">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -77,7 +77,7 @@
                     android:layout_height="wrap_content"
                     android:text="Portada de la lista"
                     android:textColor="#ABFFBD"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_marginBottom="12dp" />
 
@@ -86,28 +86,28 @@
                     android:layout_height="200dp"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="0dp"
-                    app:cardBackgroundColor="#333333">
+                    app:cardBackgroundColor="#333333"
+                    android:layout_marginBottom="16dp">
 
                     <ImageView
                         android:id="@+id/imgPortada"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="center"
-                        android:src="@drawable/ic_imagen_placeholder"
-                        android:padding="30dp"/>
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_imagen_placeholder" 
+                        android:padding="50dp"/>
                 </androidx.cardview.widget.CardView>
 
                 <Button
                     android:id="@+id/btnSeleccionarFoto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Subir foto"
+                    android:text="Cambiar Foto"
                     android:textColor="#000000"
                     android:textStyle="bold"
                     android:background="@drawable/fondo_boton_secundario"
                     app:backgroundTint="@null"
                     android:paddingHorizontal="24dp"
-                    android:layout_marginTop="16dp"
                     android:layout_marginBottom="24dp"/>
 
                 <TextView
@@ -118,7 +118,7 @@
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_marginBottom="8dp"
-                    android:layout_marginStart="8dp"/>
+                    android:layout_marginStart="4dp"/>
 
                 <EditText
                     android:id="@+id/etNombreLista"
@@ -140,7 +140,7 @@
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_marginBottom="8dp"
-                    android:layout_marginStart="8dp"/>
+                    android:layout_marginStart="4dp"/>
 
                 <EditText
                     android:id="@+id/etDescripcion"

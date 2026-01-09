@@ -2,7 +2,7 @@ package com.example.musapiapp.activities.menu;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
+import android.widget.*;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -22,7 +22,7 @@ import retrofit2.Response;
 
 public class CategoriaMusicalFormActivity extends AppCompatActivity {
 
-    private Button btnVolver;
+    private ImageButton btnVolver;
     private EditText etNombre, etDescripcion;
     private Button btnGuardar;
     private CategoriaMusicalDTO categoriaEditando = null;

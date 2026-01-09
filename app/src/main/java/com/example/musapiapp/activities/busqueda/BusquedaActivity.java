@@ -54,8 +54,9 @@ public class BusquedaActivity extends AppCompatActivity {
         rvResultados.setLayoutManager(new LinearLayoutManager(this));
 
         Button btnBuscar = findViewById(R.id.btnBuscar);
-        Button btnVolver = findViewById(R.id.btnVolver);
-        Button btnPerfil = findViewById(R.id.btnPerfil);
+        ImageButton btnVolver = findViewById(R.id.btnVolver);
+        ImageButton btnPerfil = findViewById(R.id.btnPerfil);
+        
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this, R.array.tipos_busqueda, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

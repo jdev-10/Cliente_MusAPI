@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -59,6 +60,8 @@ public class CrearAlbumActivity extends AppCompatActivity {
         Button btnSubirFoto = findViewById(R.id.btnSubirFoto);
         Button btnGuardar = findViewById(R.id.btnGuardar);
         Button btnCancelar = findViewById(R.id.btnCancelar);
+        ImageButton btnVolverHeader = findViewById(R.id.btnVolverHeader);
+        btnVolverHeader.setOnClickListener(v -> finish());
 
         // Detectar si venimos a editar
         if (getIntent().hasExtra("album")) {

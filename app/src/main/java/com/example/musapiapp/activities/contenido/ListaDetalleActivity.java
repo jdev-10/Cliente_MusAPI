@@ -16,14 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.musapiapp.R;
 import com.example.musapiapp.adapters.UcContenidoAdapter;
-import com.example.musapiapp.dto.BusquedaAlbumDTO;
 import com.example.musapiapp.dto.BusquedaCancionDTO;
-import com.example.musapiapp.dto.ContenidoGuardadoDTO;
 import com.example.musapiapp.dto.ListaDeReproduccionDTO;
 import com.example.musapiapp.network.ApiCliente;
-import com.example.musapiapp.servicios.ContenidoGuardadoServicio;
 import com.example.musapiapp.util.Constantes;
-import com.example.musapiapp.util.ManejoErrores;
 import com.example.musapiapp.util.Reproductor;
 import com.example.musapiapp.util.ReproductorUIHelper;
 import com.example.musapiapp.util.SesionUsuario;
@@ -34,20 +30,17 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class ListaDetalleActivity extends AppCompatActivity {
 
     private ListaDeReproduccionDTO lista;
     private boolean mostrarBotonGuardar = true;
-    private boolean mostrarBotonEliminar = false;
-
+    
     private ImageView imgPortada;
     private TextView txtTitulo, txtDescripcion, txtAutor, txtDuracion;
-    private Button btnCerrar, btnGuardar, btnEditar;
     private RecyclerView rvCanciones;
+    
+    private ImageButton btnCerrar; 
+    private Button btnEditar;
 
     private ReproductorUIHelper reproductorHelper;
 
@@ -59,13 +52,13 @@ public class ListaDetalleActivity extends AppCompatActivity {
         reproductorHelper = new ReproductorUIHelper(this);
         inicializarUI();
 
-        lista = new Gson().fromJson(getIntent().getStringExtra("lista"), ListaDeReproduccionDTO.class);
-
-
-        cargarDatos();
+        String listaJson = getIntent().getStringExtra("lista");
+        if (listaJson != null) {
+            lista = new Gson().fromJson(listaJson, ListaDeReproduccionDTO.class);
+            cargarDatos();
+        }
 
         btnCerrar.setOnClickListener(v -> finish());
-
 
         btnEditar.setOnClickListener(v -> {
             Intent intent = new Intent(this, CrearListaActivity.class);
@@ -78,20 +71,23 @@ public class ListaDetalleActivity extends AppCompatActivity {
         imgPortada = findViewById(R.id.imgPortada);
         txtTitulo = findViewById(R.id.txtTitulo);
         txtDescripcion = findViewById(R.id.txtDescripcion);
+        
         txtAutor = findViewById(R.id.txtAutor);
         txtDuracion = findViewById(R.id.txtDuracion);
+        
         rvCanciones = findViewById(R.id.rvCanciones);
         rvCanciones.setLayoutManager(new LinearLayoutManager(this));
-        btnCerrar = findViewById(R.id.btnCerrar);
+        
+        btnCerrar = findViewById(R.id.btnCerrar); 
         btnEditar = findViewById(R.id.btnEditarLista);
     }
 
     private void cargarDatos() {
         if (lista == null) return;
         Log.e("Lista detalles", "Lista "+ lista.getNombre()+" con foto "+ lista.getUrlFoto());
+        
         txtTitulo.setText(lista.getNombre());
         txtDescripcion.setText(lista.getDescripcion());
-
 
         cargarImagen(lista.getUrlFoto(), imgPortada);
 
@@ -104,26 +100,9 @@ public class ListaDetalleActivity extends AppCompatActivity {
         UcContenidoAdapter<BusquedaCancionDTO> adapter = new UcContenidoAdapter<>(this, canciones, "CANCION", mostrarBotonGuardar);
         adapter.setListaCanciones(canciones);
         rvCanciones.setAdapter(adapter);
-
-        // Calcular duración total
-        long totalSegundos = 0;
-        for (BusquedaCancionDTO c : canciones) {
-            try {
-                String[] partes = c.getDuracion().split(":");
-                int min = Integer.parseInt(partes[0]);
-                int seg = Integer.parseInt(partes[1]);
-                totalSegundos += min * 60 + seg;
-            } catch (Exception ignored) {}
-        }
-
-        long h = totalSegundos / 3600;
-        long m = (totalSegundos % 3600) / 60;
-        long s = totalSegundos % 60;
-        String duracion = String.format("%02d:%02d:%02d", h, m, s);
-        //txtDuracion.setText("Duración: " + duracion);
     }
 
-
+    // Mantenemos tu lógica de carga de imagen con AsyncTask tal cual la tenías
     @SuppressLint("StaticFieldLeak")
     private void cargarImagen(String urlImagen, ImageView imageView) {
         if (urlImagen == null || urlImagen.isEmpty()) return;
@@ -157,7 +136,10 @@ public class ListaDetalleActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        cargarDatos();
+        // Recargar datos por si se editó la lista en la otra pantalla
+        // Nota: Idealmente deberías recargar la lista de la API aquí, 
+        // pero mantenemos tu lógica actual de cargarDatos() con el objeto local.
+        cargarDatos(); 
 
         if (reproductorHelper != null) {
             reproductorHelper.refrescarEstadoActual();

@@ -2,52 +2,68 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="0dp">
+    android:layout_height="wrap_content">
+
     <LinearLayout
         android:id="@+id/barraReproductor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/fondo_reproductor_gradiente"
+        android:background="#1A1A1A" 
         android:clickable="true"
         android:focusable="true"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:paddingHorizontal="20dp"
         android:paddingVertical="12dp"
-        android:elevation="8dp"
+        android:elevation="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent">
 
-        <TextView
-            android:id="@+id/txtMiniTitulo"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:clickable="false"
-            android:focusable="false"
-            android:text="Canción actual"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:singleLine="true"
-            android:ellipsize="marquee"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:paddingEnd="16dp" />
+            android:orientation="vertical"
+            android:paddingEnd="16dp">
+
+            <TextView
+                android:id="@+id/txtMiniTitulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sin reproducción"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"/>
+            
+            <TextView
+                android:text="Tocá para abrir"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#ABFFBD"
+                android:textSize="10sp"/>
+        </LinearLayout>
 
         <ImageButton
             android:id="@+id/btnMiniPlayPause"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_play"
-            app:tint="#FFFFFF"
+            app:tint="#ABFFBD"
             android:contentDescription="Reproducir/Pausar" />
 
     </LinearLayout>
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#ABFFBD"
+        app:layout_constraintBottom_toTopOf="@id/barraReproductor"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

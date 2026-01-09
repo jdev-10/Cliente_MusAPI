@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton; // Importar ImageButton
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,8 +18,8 @@ public class MenuAdminActivity extends AppCompatActivity {
 
     private Button btnCategoriasMusicales;
     private Button btnReportes;
-    private Button btnVolver;
-
+    private ImageButton btnVolver;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,8 +27,11 @@ public class MenuAdminActivity extends AppCompatActivity {
 
         btnCategoriasMusicales = findViewById(R.id.btnCategoriasMusicales);
         btnReportes = findViewById(R.id.btnReportes);
+        
         btnVolver = findViewById(R.id.btnVolver);
-        Button btnBuscarUsuarios = findViewById(R.id.btnBuscarUsuarios);
+        
+        ImageButton btnBuscarUsuarios = findViewById(R.id.btnBuscarUsuarios);
+        
         EditText etBusquedaUsuarios = findViewById(R.id.etBusquedaUsuarios);
 
         btnBuscarUsuarios.setOnClickListener(v -> {

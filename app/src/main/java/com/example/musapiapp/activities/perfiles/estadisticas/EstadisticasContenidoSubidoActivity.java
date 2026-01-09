@@ -3,7 +3,7 @@ package com.example.musapiapp.activities.perfiles.estadisticas;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -26,7 +26,7 @@ public class EstadisticasContenidoSubidoActivity extends AppCompatActivity {
 
     private TextView tvTotalOyentes, tvTotalGuardados;
     private Spinner spTipoContenido;
-    private Button btnVolver;
+    private ImageButton btnVolver; 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,8 +87,8 @@ public class EstadisticasContenidoSubidoActivity extends AppCompatActivity {
                         EstadisticasContenidoSubidoDTO dto = response.body().getDatos();
                         if (dto == null) return;
 
-                        tvTotalOyentes.setText("Total de oyentes registrados: " + dto.getNumeroOyentes());
-                        tvTotalGuardados.setText("Veces que se han guardado: " + dto.getNumeroGuardados());
+                        tvTotalOyentes.setText(String.valueOf(dto.getNumeroOyentes()));
+                        tvTotalGuardados.setText(String.valueOf(dto.getNumeroGuardados()));
                     }
 
                     @Override

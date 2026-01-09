@@ -59,7 +59,7 @@ public class PerfilArtistaActivity extends AppCompatActivity {
         btnEvaluar = findViewById(R.id.btnEvaluar);
         btnSeguir = findViewById(R.id.btnSeguir);
 
-        rvAlbumes.setLayoutManager(new LinearLayoutManager(this));
+        rvAlbumes.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         rvSencillos.setLayoutManager(new LinearLayoutManager(this));
 
         findViewById(R.id.btnVolver).setOnClickListener(v -> onBackPressed());

@@ -2,10 +2,14 @@ package com.example.musapiapp.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,7 +35,7 @@ public class SeleccionarListaDialogFragment extends DialogFragment {
         this.listener = listener;
     }
 
-    @Nullable
+    @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
@@ -41,10 +45,17 @@ public class SeleccionarListaDialogFragment extends DialogFragment {
         recycler.setLayoutManager(new LinearLayoutManager(getContext()));
         recycler.setAdapter(new ListaAdapter(listas, listener));
 
-        builder.setView(view)
-                .setTitle("Seleccionar lista")
-                .setNegativeButton("Cancelar", (dialog, which) -> dialog.dismiss());
+        Button btnCancelar = view.findViewById(R.id.btnCancelar);
+        btnCancelar.setOnClickListener(v -> dismiss());
 
-        return builder.create();
+        builder.setView(view);
+        
+        Dialog dialog = builder.create();
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+        return dialog;
     }
 }

@@ -34,10 +34,8 @@ public class SubirContenidoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subir_contenido);
 
-        // 🔙 Botón volver
         findViewById(R.id.btnVolver).setOnClickListener(v -> finish());
 
-        // 🔄 ID del artista
         idPerfilArtista = getIntent().getIntExtra("idPerfilArtista", -1);
         if (idPerfilArtista == -1) {
             Toast.makeText(this, "ID de artista no válido", Toast.LENGTH_SHORT).show();
@@ -45,7 +43,6 @@ public class SubirContenidoActivity extends AppCompatActivity {
             return;
         }
 
-        // 🎵 Acciones de los botones
         findViewById(R.id.btnCrearAlbum).setOnClickListener(v -> {
             Intent intent = new Intent(this, CrearAlbumActivity.class);
             intent.putExtra("idPerfilArtista", idPerfilArtista);
@@ -58,7 +55,6 @@ public class SubirContenidoActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // 📜 Lista de álbumes pendientes
         rvAlbumes = findViewById(R.id.rvAlbumesPendientes);
         rvAlbumes.setLayoutManager(new LinearLayoutManager(this));
 
@@ -68,7 +64,7 @@ public class SubirContenidoActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        cargarAlbumesPendientes(); // Recarga cada vez que regresas
+        cargarAlbumesPendientes();
     }
 
     private void cargarAlbumesPendientes() {
@@ -78,7 +74,8 @@ public class SubirContenidoActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                         if (!response.isSuccessful() || response.body() == null) {
-                            Toast.makeText(SubirContenidoActivity.this, "Error al cargar álbumes pendientes", Toast.LENGTH_SHORT).show();
+                            // Opcional: No mostrar error si simplemente no hay pendientes
+                            // Toast.makeText(SubirContenidoActivity.this, "Error al cargar álbumes pendientes", Toast.LENGTH_SHORT).show();
                             return;
                         }
 

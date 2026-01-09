@@ -71,7 +71,9 @@ public class SubirCancionActivity extends AppCompatActivity {
         txtNombreArchivo = findViewById(R.id.txtNombreArchivo);
         txtDuracion = findViewById(R.id.txtDuracion);
 
-        Button btnVolver = findViewById(R.id.btnVolver);
+        // CAMBIO: btnVolver es ImageButton
+        ImageButton btnVolver = findViewById(R.id.btnVolver);
+        
         Button btnSubirFoto = findViewById(R.id.btnSubirFoto);
         Button btnSubirArchivo = findViewById(R.id.btnSubirArchivo);
         Button btnConfirmar = findViewById(R.id.btnConfirmar);

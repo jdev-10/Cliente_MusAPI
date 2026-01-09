@@ -1,30 +1,41 @@
 package com.example.musapiapp.activities.menu;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import com.example.musapiapp.R;
 import com.example.musapiapp.adapters.UcContenidoAdapter;
 import com.example.musapiapp.dto.BusquedaAlbumDTO;
 import com.example.musapiapp.dto.BusquedaArtistaDTO;
+import com.example.musapiapp.dto.BusquedaCancionDTO;
 import com.example.musapiapp.dto.ListaDeReproduccionDTO;
 import com.example.musapiapp.network.ApiCliente;
 import com.example.musapiapp.servicios.ContenidoGuardadoServicio;
+import com.example.musapiapp.servicios.RecomendacionServicio;
 import com.example.musapiapp.util.ManejoErrores;
 import com.example.musapiapp.util.Reproductor;
 import com.example.musapiapp.util.ReproductorUIHelper;
 import com.example.musapiapp.util.RespuestaApi;
 import com.example.musapiapp.util.SesionUsuario;
+import com.example.musapiapp.workers.NotificacionWorker;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -33,6 +44,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,7 +54,7 @@ public class MenuPrincipalActivity extends AppCompatActivity {
 
     private EditText etBusqueda;
     private Button btnBuscar, btnMenuAdmin, btnPerfil, btnCerrarSesion, btnCrearLista;
-    private RecyclerView rvAlbumes, rvListas, rvArtistas;
+    private RecyclerView rvAlbumes, rvListas, rvArtistas, rvRecomendaciones;
     private ContenidoGuardadoServicio servicio;
     private final Gson gson = new Gson();
     private ReproductorUIHelper reproductorHelper;
@@ -52,6 +64,26 @@ public class MenuPrincipalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_principal);
 
+
+        PeriodicWorkRequest notiRequest = new PeriodicWorkRequest.Builder(NotificacionWorker.class, 15, TimeUnit.MINUTES)
+                .build();
+
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+                "MusApiNotificaciones",
+                ExistingPeriodicWorkPolicy.KEEP,
+                notiRequest
+        );
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) !=
+                    PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.POST_NOTIFICATIONS},
+                        101);
+            }
+        }
+
         reproductorHelper = new ReproductorUIHelper(this);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -60,21 +92,23 @@ public class MenuPrincipalActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Vistas
-        etBusqueda     = findViewById(R.id.etBusqueda);
-        btnBuscar      = findViewById(R.id.btnBuscar);
-        btnMenuAdmin   = findViewById(R.id.btnMenuAdmin);
-        btnPerfil      = findViewById(R.id.btnPerfil);
-        btnCerrarSesion= findViewById(R.id.btnCerrarSesion);
-        btnCrearLista  = findViewById(R.id.btnCrearLista);
 
-        rvAlbumes  = findViewById(R.id.rvAlbumes);
-        rvListas   = findViewById(R.id.rvListas);
+        etBusqueda = findViewById(R.id.etBusqueda);
+        btnBuscar = findViewById(R.id.btnBuscar);
+        btnMenuAdmin = findViewById(R.id.btnMenuAdmin);
+        btnPerfil = findViewById(R.id.btnPerfil);
+        btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
+        btnCrearLista = findViewById(R.id.btnCrearLista);
+
+        rvAlbumes = findViewById(R.id.rvAlbumes);
+        rvListas = findViewById(R.id.rvListas);
         rvArtistas = findViewById(R.id.rvArtistas);
+        rvRecomendaciones = findViewById(R.id.rvRecomendaciones);
 
         rvAlbumes.setLayoutManager(new LinearLayoutManager(this));
         rvListas.setLayoutManager(new LinearLayoutManager(this));
         rvArtistas.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        rvRecomendaciones.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         if (!SesionUsuario.getEsAdmin()) {
             btnMenuAdmin.setVisibility(View.GONE);
@@ -110,7 +144,8 @@ public class MenuPrincipalActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         cargarContenidoGuardado();
-        if (reproductorHelper != null){
+        cargarRecomendaciones();
+        if (reproductorHelper != null) {
             reproductorHelper.refrescarEstadoActual();
             Reproductor.inicializar(this, reproductorHelper);
         }
@@ -125,9 +160,9 @@ public class MenuPrincipalActivity extends AppCompatActivity {
     private void cargarContenidoGuardado() {
         int idUsuario = SesionUsuario.getIdUsuario();
 
-        Type typeAlbum   = new TypeToken<List<BusquedaAlbumDTO>>(){}.getType();
-        Type typeLista   = new TypeToken<List<ListaDeReproduccionDTO>>(){}.getType();
-        Type typeArtista = new TypeToken<List<BusquedaArtistaDTO>>(){}.getType();
+        Type typeAlbum = new TypeToken<List<BusquedaAlbumDTO>>() {}.getType();
+        Type typeLista = new TypeToken<List<ListaDeReproduccionDTO>>() {}.getType();
+        Type typeArtista = new TypeToken<List<BusquedaArtistaDTO>>() {}.getType();
 
         // — Álbumes —
         servicio.obtenerAlbumesGuardados(idUsuario).enqueue(new Callback<JsonObject>() {
@@ -146,7 +181,7 @@ public class MenuPrincipalActivity extends AppCompatActivity {
             }
         });
 
-        // — Listas —
+
         servicio.obtenerListasGuardadas(idUsuario).enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> resp) {
@@ -163,7 +198,7 @@ public class MenuPrincipalActivity extends AppCompatActivity {
             }
         });
 
-        // — Artistas —
+
         servicio.obtenerArtistasGuardados(idUsuario).enqueue(new Callback<RespuestaApi<List<BusquedaArtistaDTO>>>() {
             @Override
             public void onResponse(Call<RespuestaApi<List<BusquedaArtistaDTO>>> call, Response<RespuestaApi<List<BusquedaArtistaDTO>>> resp) {
@@ -179,6 +214,41 @@ public class MenuPrincipalActivity extends AppCompatActivity {
                 ManejoErrores.mostrarToastError(MenuPrincipalActivity.this, t);
             }
         });
+    }
+
+    private void cargarRecomendaciones() {
+        RecomendacionServicio recomendacionServicio = ApiCliente.getClient().create(RecomendacionServicio.class);
+
+        recomendacionServicio.obtenerRecomendaciones(SesionUsuario.getIdUsuario())
+                .enqueue(new Callback<RespuestaApi<List<BusquedaCancionDTO>>>() {
+                    @Override
+                    public void onResponse(Call<RespuestaApi<List<BusquedaCancionDTO>>> call,
+                                           Response<RespuestaApi<List<BusquedaCancionDTO>>> response) {
+
+                        if (response.isSuccessful() && response.body() != null) {
+                            List<BusquedaCancionDTO> recomendaciones = response.body().getDatos();
+
+                            if (recomendaciones != null && !recomendaciones.isEmpty()) {
+                                UcContenidoAdapter<BusquedaCancionDTO> adapter =
+                                        new UcContenidoAdapter<>(MenuPrincipalActivity.this, recomendaciones, "CANCION", true);
+
+                                adapter.setListaCanciones(recomendaciones);
+                                rvRecomendaciones.setAdapter(adapter);
+                                rvRecomendaciones.setVisibility(View.VISIBLE);
+                            } else {
+                                rvRecomendaciones.setVisibility(View.GONE);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<RespuestaApi<List<BusquedaCancionDTO>>> call, Throwable t) {
+                        // Error silencioso en recomendaciones para no molestar al usuario
+                        if (rvRecomendaciones != null) {
+                            rvRecomendaciones.setVisibility(View.GONE);
+                        }
+                    }
+                });
     }
 
     @Override

@@ -24,7 +24,10 @@ public class EliminarUsuarioActivity extends AppCompatActivity {
 
     private TextView tvDatosUsuario, tvContador;
     private EditText etMotivo;
-    private Button btnCancelar, btnEliminar, btnVolver;
+    private Button btnCancelar, btnEliminar;
+    // CAMBIO: btnVolver ahora es ImageButton
+    private ImageButton btnVolver;
+    
     private BusquedaUsuarioDTO usuario;
 
     @Override
@@ -37,6 +40,8 @@ public class EliminarUsuarioActivity extends AppCompatActivity {
         etMotivo = findViewById(R.id.etMotivo);
         btnCancelar = findViewById(R.id.btnCancelar);
         btnEliminar = findViewById(R.id.btnEliminar);
+        
+        // CAMBIO: Referencia al ImageButton
         btnVolver = findViewById(R.id.btnVolver);
 
         try {

@@ -3,6 +3,7 @@ package com.example.musapiapp.activities.contenido;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,14 +29,15 @@ public class DetalleCancionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        // EdgeToEdge.enable(this);
         setContentView(R.layout.activity_detalle_cancion);
 
+        /*
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets sys = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(sys.left, sys.top, sys.right, sys.bottom);
             return insets;
-        });
+        });*/
 
         imgFoto = findViewById(R.id.imgFoto);
         txtNombre = findViewById(R.id.txtNombre);
@@ -47,6 +49,10 @@ public class DetalleCancionActivity extends AppCompatActivity {
 
         Button btnCerrar = findViewById(R.id.btnCerrar);
         btnCerrar.setOnClickListener(v -> finish());
+
+        ImageButton btnVolverHeader = findViewById(R.id.btnVolverHeader);
+        btnVolverHeader.setOnClickListener(v -> finish());
+        // -------------------------------
 
         try {
             BusquedaCancionDTO cancion = getIntent().getParcelableExtra("cancion");
@@ -78,13 +84,13 @@ public class DetalleCancionActivity extends AppCompatActivity {
 
         try {
             if (c.getUrlFoto() != null && !c.getUrlFoto().isEmpty()) {
-                Constantes.CargarImagen(c.getUrlFoto(),imgFoto);
+                Constantes.CargarImagen(c.getUrlFoto(), imgFoto);
             } else {
-                imgFoto.setImageResource(android.R.color.darker_gray);
+                imgFoto.setImageResource(R.drawable.ic_album); 
             }
         } catch (Exception e) {
             ManejoErrores.mostrarToastError(this, e);
-            imgFoto.setImageResource(android.R.color.darker_gray);
+            imgFoto.setImageResource(R.drawable.ic_album);
         }
     }
 }

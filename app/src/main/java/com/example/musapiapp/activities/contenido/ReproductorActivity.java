@@ -20,12 +20,11 @@ import com.example.musapiapp.util.Reproductor;
 import com.example.musapiapp.util.SesionUsuario;
 
 public class ReproductorActivity extends AppCompatActivity implements Reproductor.ReproductorListener {
-    ImageButton btnPlayPause, btnAnterior, btnSiguiente;
+    
+    ImageButton btnPlayPause, btnAnterior, btnSiguiente, btnMinimizar;
     SeekBar seekBar;
-    TextView txtCancion, txtArtista;
+    TextView txtCancion, txtArtista, txtPosicionAlbum, txtTiempoActual, txtDuracionTotal;
     ImageView imgPortada;
-    TextView txtPosicionAlbum;
-    TextView txtTiempoActual, txtDuracionTotal;
 
     private Handler handler = new Handler();
     private Runnable actualizarSeekBarRunnable;
@@ -39,6 +38,7 @@ public class ReproductorActivity extends AppCompatActivity implements Reproducto
         Reproductor.removerListener(this);
         Reproductor.inicializar(this, this);
 
+        btnMinimizar = findViewById(R.id.btnMinimizar);
         btnPlayPause = findViewById(R.id.btnPlayPause);
         btnAnterior = findViewById(R.id.btnAnterior);
         btnSiguiente = findViewById(R.id.btnSiguiente);
@@ -52,19 +52,8 @@ public class ReproductorActivity extends AppCompatActivity implements Reproducto
 
         refrescarUI();
 
-        if (Reproductor.estaReproduciendo()) {
-            btnPlayPause.setImageResource(R.drawable.ic_pause);
-        } else {
-            btnPlayPause.setImageResource(R.drawable.ic_play);
-        }
-
-        BusquedaCancionDTO cancion = Reproductor.getCancionActual();
-        if (cancion != null) {
-            txtCancion.setText(cancion.getNombre());
-            txtArtista.setText(cancion.getNombreArtista());
-            cargarImagen(cancion.getUrlFoto(), imgPortada);
-        }
-
+        btnMinimizar.setOnClickListener(v -> finish());
+        
         btnPlayPause.setOnClickListener(v -> Reproductor.pausarReanudar());
         btnAnterior.setOnClickListener(v -> Reproductor.cancionAnterior());
         btnSiguiente.setOnClickListener(v -> Reproductor.siguienteCancion());
@@ -115,16 +104,7 @@ public class ReproductorActivity extends AppCompatActivity implements Reproducto
     @Override
     public void onReproduccionIniciada() {
         btnPlayPause.setImageResource(R.drawable.ic_pause);
-        BusquedaCancionDTO cancion = Reproductor.getCancionActual();
-        if (cancion != null) {
-            txtCancion.setText(cancion.getNombre());
-            txtArtista.setText(cancion.getNombreArtista());
-            cargarImagen(cancion.getUrlFoto(), imgPortada);
-
-            int actual = Reproductor.getIndiceActual() + 1;
-            int total = Reproductor.getListaCanciones().size();
-            txtPosicionAlbum.setText(actual + " / " + total);
-        }
+        actualizarInfoCancion();
     }
 
     @Override
@@ -140,6 +120,19 @@ public class ReproductorActivity extends AppCompatActivity implements Reproducto
     @Override
     public void onReproduccionReanudada() {
         btnPlayPause.setImageResource(R.drawable.ic_pause);
+    }
+
+    private void actualizarInfoCancion() {
+        BusquedaCancionDTO cancion = Reproductor.getCancionActual();
+        if (cancion != null) {
+            txtCancion.setText(cancion.getNombre());
+            txtArtista.setText(cancion.getNombreArtista());
+            cargarImagen(cancion.getUrlFoto(), imgPortada);
+
+            int actual = Reproductor.getIndiceActual() + 1;
+            int total = Reproductor.getListaCanciones().size();
+            txtPosicionAlbum.setText(actual + " / " + total);
+        }
     }
 
     private void cargarImagen(String url, ImageView destino) {
@@ -158,7 +151,7 @@ public class ReproductorActivity extends AppCompatActivity implements Reproducto
 
             Glide.with(this)
                     .load(glideUrl)
-                    .placeholder(android.R.color.darker_gray)
+                    .placeholder(R.drawable.ic_album)
                     .into(destino);
 
         } catch (Exception e) {
@@ -173,16 +166,7 @@ public class ReproductorActivity extends AppCompatActivity implements Reproducto
     }
 
     private void refrescarUI() {
-        BusquedaCancionDTO cancion = Reproductor.getCancionActual();
-        if (cancion != null) {
-            txtCancion.setText(cancion.getNombre());
-            txtArtista.setText(cancion.getNombreArtista());
-            cargarImagen(cancion.getUrlFoto(), imgPortada);
-
-            int actual = Reproductor.getIndiceActual() + 1;
-            int total = Reproductor.getListaCanciones().size();
-            txtPosicionAlbum.setText(actual + " / " + total);
-        }
+        actualizarInfoCancion();
 
         if (Reproductor.estaReproduciendo()) {
             btnPlayPause.setImageResource(R.drawable.ic_pause);

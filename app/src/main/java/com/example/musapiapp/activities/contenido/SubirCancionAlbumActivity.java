@@ -42,6 +42,7 @@ public class SubirCancionAlbumActivity extends AppCompatActivity {
     private EditText etNombre;
     private Spinner spCategorias;
     private TextView tvAudioSeleccionado;
+    private ImageButton btnVolver;
 
     private Uri uriAudio = null;
     private String duracionStr = "";
@@ -68,6 +69,9 @@ public class SubirCancionAlbumActivity extends AppCompatActivity {
         tvAudioSeleccionado = findViewById(R.id.tvAudioSeleccionado);
         Button btnSeleccionarAudio = findViewById(R.id.btnSeleccionarAudio);
         Button btnSubir = findViewById(R.id.btnSubir);
+        
+        btnVolver = findViewById(R.id.btnVolver);
+        btnVolver.setOnClickListener(v -> finish());
 
         btnSeleccionarAudio.setOnClickListener(v -> seleccionarAudio());
         btnSubir.setOnClickListener(v -> subirCancion());
@@ -78,6 +82,7 @@ public class SubirCancionAlbumActivity extends AppCompatActivity {
                 if (uri != null && validarTamanio(uri, MAX_AUDIO_SIZE)) {
                     uriAudio = uri;
                     tvAudioSeleccionado.setText(obtenerNombreArchivo(uri));
+                    tvAudioSeleccionado.setTextColor(getResources().getColor(android.R.color.white)); 
                     try {
                         duracionStr = obtenerDuracion(uri);
                     } catch (Exception e) {

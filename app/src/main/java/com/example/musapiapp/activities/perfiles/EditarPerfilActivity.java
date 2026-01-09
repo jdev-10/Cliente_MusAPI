@@ -45,7 +45,8 @@ import retrofit2.Response;
 public class EditarPerfilActivity extends AppCompatActivity {
 
     private ImageView imgFoto;
-    private Button btnVolver, btnSubirFoto, btnConfirmar;
+    private ImageButton btnVolver;
+    private Button btnSubirFoto, btnConfirmar;
     private EditText etNombre, etDescripcion;
     private TextView tvDescripcionLabel;
     private Spinner spinnerPais;
@@ -70,13 +71,13 @@ public class EditarPerfilActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        //EdgeToEdge.enable(this);
         setContentView(R.layout.activity_editar_perfil);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        /*ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets sys = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(sys.left, sys.top, sys.right, sys.bottom);
             return insets;
-        });
+        });*/
 
         usuarioServicio = ApiCliente.getClient().create(UsuarioServicio.class);
 

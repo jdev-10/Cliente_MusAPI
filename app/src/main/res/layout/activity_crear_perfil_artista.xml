@@ -1,80 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp"
-    android:background="@android:color/white">
+    android:background="@drawable/fondo_gradiente_principal">
 
-    <LinearLayout
-        android:id="@+id/crearPerfilLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/headerBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:background="#000000"
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="16dp"
+        android:elevation="4dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Título -->
+        <ImageButton
+            android:id="@+id/btnVolver"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Regresar"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_back_black"
+            app:tint="#FFFFFF"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
         <TextView
-            android:id="@+id/txtTitulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Crear Perfil de Artista"
-            android:textSize="24sp"
+            android:text="Perfil de Artista"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginBottom="24dp" />
+            app:layout_constraintStart_toEndOf="@id/btnVolver"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
-        <!-- Imagen (placeholder + cargada) -->
-        <ImageView
-            android:id="@+id/imgFotoPerfil"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:background="#CCCCCC"
-            android:contentDescription="Foto de perfil"
-            android:layout_marginBottom="12dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!-- Botón subir foto -->
-        <Button
-            android:id="@+id/btnSubirFoto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Subir foto" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/headerBar"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <!-- Descripción -->
-        <TextView
-            android:id="@+id/txtDescripcionLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Descripción"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="8dp" />
-
-        <EditText
-            android:id="@+id/etDescripcion"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Escribe una descripción pública..."
-            android:maxLength="100"
-            android:background="@android:drawable/editbox_background"
-            android:padding="12dp" />
+            android:orientation="vertical"
+            android:gravity="center">
 
-        <!-- Mensaje adicional -->
-        <TextView
-            android:id="@+id/txtInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Esta descripción es pública"
-            android:textSize="14sp"
-            android:layout_marginTop="8dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/fondo_info_album"
+                android:padding="24dp"
+                android:gravity="center_horizontal">
 
-        <!-- Botón confirmar -->
-        <Button
-            android:id="@+id/btnConfirmar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Confirmar"
-            android:layout_marginTop="32dp" />
-    </LinearLayout>
-</ScrollView>
+                <TextView
+                    android:id="@+id/txtTitulo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Crear Perfil"
+                    android:textColor="#FFFFFF"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="24dp" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    app:cardCornerRadius="80dp"
+                    app:cardBackgroundColor="#333333"
+                    app:cardElevation="0dp"
+                    android:layout_marginBottom="16dp">
+
+                    <ImageView
+                        android:id="@+id/imgFotoPerfil"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_usuario_perfil"
+                        android:padding="30dp"/> 
+                        </androidx.cardview.widget.CardView>
+
+                <Button
+                    android:id="@+id/btnSubirFoto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Subir Foto"
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    android:background="@drawable/fondo_boton_secundario"
+                    app:backgroundTint="@null"
+                    android:paddingHorizontal="24dp"
+                    android:layout_marginBottom="24dp"/>
+
+                <TextView
+                    android:id="@+id/txtDescripcionLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Descripción Pública"
+                    android:textColor="#ABFFBD"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="4dp"/>
+
+                <EditText
+                    android:id="@+id/etDescripcion"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="@drawable/fondo_input_area"
+                    android:hint="Cuéntanos sobre ti..."
+                    android:textColorHint="#B0B0B0"
+                    android:textColor="#FFFFFF"
+                    android:padding="16dp"
+                    android:gravity="top|start"
+                    android:maxLength="100"
+                    android:inputType="textMultiLine"/>
+
+                <TextView
+                    android:id="@+id/txtInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Esta descripción será visible para todos."
+                    android:textColor="#B0B0B0"
+                    android:textSize="12sp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="32dp"
+                    android:layout_marginStart="4dp"/>
+
+                <Button
+                    android:id="@+id/btnConfirmar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Confirmar y Crear"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:background="@drawable/fondo_boton_principal"
+                    app:backgroundTint="@null"
+                    android:paddingVertical="12dp"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

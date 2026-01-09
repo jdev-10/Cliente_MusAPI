@@ -1,76 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:background="#FFFFFF">
+    android:background="@drawable/fondo_gradiente_principal">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/headerBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:background="#000000"
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="16dp"
+        android:elevation="4dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnVolverHeader"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Regresar"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_back_black"
+            app:tint="#FFFFFF"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <TextView
-            android:id="@+id/txtTitulo"
+            android:id="@+id/txtTituloHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Crear Álbum"
-            android:textSize="22sp"
+            android:text="Gestión de Álbum"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginBottom="16dp" />
+            app:layout_constraintStart_toEndOf="@id/btnVolverHeader"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
-        <!-- Imagen seleccionada -->
-        <ImageView
-            android:id="@+id/imgPortada"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginBottom="12dp"
-            android:scaleType="centerCrop"
-            android:background="#EEEEEE" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!-- Botón para subir foto -->
-        <Button
-            android:id="@+id/btnSubirFoto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Subir foto" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/headerBar"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <!-- Nombre del álbum -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Nombre del álbum"
-            android:layout_marginTop="24dp" />
-
-        <EditText
-            android:id="@+id/etNombre"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Nombre"
-            android:maxLength="100" />
-
-        <!-- Botones -->
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_marginTop="32dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
 
-            <Button
-                android:id="@+id/btnGuardar"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Guardar" />
+                android:orientation="vertical"
+                android:background="@drawable/fondo_info_album"
+                android:padding="24dp"
+                android:gravity="center_horizontal">
 
-            <Button
-                android:id="@+id/btnCancelar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cancelar"
-                android:layout_marginStart="16dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Portada del Álbum"
+                    android:textColor="#ABFFBD"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="12dp"/>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="#333333"
+                    android:layout_marginBottom="16dp">
+
+                    <ImageView
+                        android:id="@+id/imgPortada"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_album"
+                        android:padding="0dp"/> 
+                        </androidx.cardview.widget.CardView>
+
+                <Button
+                    android:id="@+id/btnSubirFoto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cambiar Portada"
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    android:background="@drawable/fondo_boton_secundario"
+                    app:backgroundTint="@null"
+                    android:paddingHorizontal="24dp"
+                    android:layout_marginBottom="24dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre del Álbum"
+                    android:textColor="#ABFFBD"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="4dp"/>
+
+                <EditText
+                    android:id="@+id/etNombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/fondo_input_login"
+                    android:hint="Ej. Greatest Hits"
+                    android:textColorHint="#B0B0B0"
+                    android:textColor="#FFFFFF"
+                    android:paddingHorizontal="16dp"
+                    android:maxLength="50"
+                    android:inputType="textCapWords"
+                    android:layout_marginBottom="32dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/btnCancelar"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="Cancelar"
+                        android:textColor="#B80000"
+                        android:textStyle="bold"
+                        android:background="@drawable/fondo_boton_negativo"
+                        app:backgroundTint="@null"
+                        android:layout_marginEnd="8dp"/>
+
+                    <Button
+                        android:id="@+id/btnGuardar"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="Guardar"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold"
+                        android:background="@drawable/fondo_boton_principal"
+                        app:backgroundTint="@null"
+                        android:layout_marginStart="8dp"/>
+                </LinearLayout>
+
+            </LinearLayout>
         </LinearLayout>
+    </ScrollView>
 
-    </LinearLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

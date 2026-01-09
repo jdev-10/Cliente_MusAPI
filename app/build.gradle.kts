@@ -52,6 +52,8 @@ dependencies {
     implementation ("com.squareup.okhttp3:okhttp:4.9.3")
     implementation ("com.google.code.gson:gson:2.8.9")
     implementation("org.java-websocket:Java-WebSocket:1.5.3")
+    implementation("androidx.work:work-runtime:2.8.1")
+    implementation("com.google.guava:guava:31.1-android")
 
 
 }

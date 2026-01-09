@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -63,12 +64,11 @@ public class ChatActivity extends AppCompatActivity {
         scrollMensajes = findViewById(R.id.scrollMensajes);
         txtNombreChat = findViewById(R.id.txtNombreChat);
         imgPerfil = findViewById(R.id.imgPerfil);
-        Button btnEnviar = findViewById(R.id.btnEnviar);
-        Button btnVolver = findViewById(R.id.btnVolver);
+        ImageButton btnEnviar = findViewById(R.id.btnEnviar);
+        ImageButton btnVolver = findViewById(R.id.btnVolver);
 
         txtNombreChat.setText("Chat de artista: @" + artista.getNombreUsuario());
 
-        // Cargar imagen del artista
         if (artista.getUrlFoto() != null && !artista.getUrlFoto().isEmpty()) {
             try {
                 GlideUrl glideUrl = new GlideUrl(
@@ -129,8 +129,11 @@ public class ChatActivity extends AppCompatActivity {
     private void mostrarMensaje(ChatMessageDTO mensaje) {
         TextView txt = new TextView(this);
         txt.setText(mensaje.getNombreUsuario() + ": " + mensaje.getMensaje());
+        
         txt.setTextSize(16f);
-        txt.setPadding(8, 8, 8, 8);
+        txt.setTextColor(android.graphics.Color.WHITE);
+        txt.setPadding(16, 16, 16, 16);
+
         mensajesLayout.addView(txt);
         scrollMensajes.post(() -> scrollMensajes.fullScroll(ScrollView.FOCUS_DOWN));
     }

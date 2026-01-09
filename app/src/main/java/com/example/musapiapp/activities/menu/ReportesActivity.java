@@ -22,7 +22,7 @@ import retrofit2.Response;
 
 public class ReportesActivity extends AppCompatActivity {
 
-    private Button btnVolver;
+    private ImageButton btnVolver;
     private Spinner spTipoReporte;
     private LinearLayout layoutUsuarios, layoutTop;
     private TextView tvTotalUsuarios, tvTotalArtistas, tvTotalOyentes, tvTopResultados, tvTituloTop;
@@ -36,6 +36,7 @@ public class ReportesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reportes);
 
         btnVolver = findViewById(R.id.btnVolver);
+        
         spTipoReporte = findViewById(R.id.spTipoReporte);
         layoutUsuarios = findViewById(R.id.layoutUsuarios);
         layoutTop = findViewById(R.id.layoutTop);
@@ -103,9 +104,9 @@ public class ReportesActivity extends AppCompatActivity {
                 EstadisticasNumeroUsuariosDTO dto = resp.body().getDatos();
                 if (dto == null) return;
 
-                tvTotalArtistas.setText("Usuarios Artistas: " + dto.getTotalArtistas());
-                tvTotalOyentes.setText("Usuarios no Artistas: " + dto.getTotalUsuarios());
-                tvTotalUsuarios.setText("Usuarios: " + (dto.getTotalUsuarios() + dto.getTotalArtistas()));
+                tvTotalArtistas.setText(String.valueOf(dto.getTotalArtistas()));
+                tvTotalOyentes.setText(String.valueOf(dto.getTotalUsuarios()));
+                tvTotalUsuarios.setText(String.valueOf(dto.getTotalUsuarios() + dto.getTotalArtistas()));
             }
 
             @Override
@@ -120,7 +121,7 @@ public class ReportesActivity extends AppCompatActivity {
         String fechaFin = getFechaFormateada(tvFechaFin);
 
         if (fechaInicio == null || fechaFin == null) {
-            tvTopResultados.setText("No hay artistas escuchados en el periodo seleccionado.");
+            tvTopResultados.setText("Seleccione las fechas para consultar.");
             return;
         }
 
@@ -132,7 +133,7 @@ public class ReportesActivity extends AppCompatActivity {
                         if (!resp.isSuccessful() || resp.body() == null) return;
                         List<ArtistaMasEscuchadoDTO> lista = resp.body().getDatos();
                         if (lista == null || lista.isEmpty()) {
-                            tvTopResultados.setText("No hay artistas escuchados en el periodo seleccionado.");
+                            tvTopResultados.setText("No hay datos para el periodo seleccionado.");
                             return;
                         }
 
@@ -143,7 +144,7 @@ public class ReportesActivity extends AppCompatActivity {
                             long seg = dto.getSegundosEscuchados() % 60;
                             builder.append(pos++)
                                     .append(". ").append(dto.getNombreArtista())
-                                    .append(" - ").append(min).append("m ").append(seg).append("s\n\n");
+                                    .append("\n   ⏱ ").append(min).append("m ").append(seg).append("s\n\n");
                         }
                         tvTopResultados.setText(builder.toString());
                     }
@@ -160,7 +161,7 @@ public class ReportesActivity extends AppCompatActivity {
         String fechaFin = getFechaFormateada(tvFechaFin);
 
         if (fechaInicio == null || fechaFin == null) {
-            tvTopResultados.setText("No hay canciones escuchadas en el periodo seleccionado.");
+            tvTopResultados.setText("Seleccione las fechas para consultar.");
             return;
         }
 
@@ -172,7 +173,7 @@ public class ReportesActivity extends AppCompatActivity {
                         if (!resp.isSuccessful() || resp.body() == null) return;
                         List<CancionMasEscuchadaDTO> lista = resp.body().getDatos();
                         if (lista == null || lista.isEmpty()) {
-                            tvTopResultados.setText("No hay canciones escuchadas en el periodo seleccionado.");
+                            tvTopResultados.setText("No hay datos para el periodo seleccionado.");
                             return;
                         }
 
@@ -183,8 +184,8 @@ public class ReportesActivity extends AppCompatActivity {
                             long seg = dto.getSegundosEscuchados() % 60;
                             builder.append(pos++)
                                     .append(". ").append(dto.getNombreCancion())
-                                    .append(" - ").append(min).append("m ").append(seg).append("s\n")
-                                    .append(dto.getNombreUsuarioArtista()).append("\n\n");
+                                    .append(" (").append(dto.getNombreUsuarioArtista()).append(")")
+                                    .append("\n   ⏱ ").append(min).append("m ").append(seg).append("s\n\n");
                         }
                         tvTopResultados.setText(builder.toString());
                     }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -75,18 +76,21 @@ public class CrearPerfilArtistaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        //EdgeToEdge.enable(this);
         setContentView(R.layout.activity_crear_perfil_artista);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        /*ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
-        });
+        });*/
 
         imgFoto = findViewById(R.id.imgFotoPerfil);
         etDescripcion = findViewById(R.id.etDescripcion);
         btnSubirFoto = findViewById(R.id.btnSubirFoto);
         btnConfirmar = findViewById(R.id.btnConfirmar);
+
+        ImageButton btnVolver = findViewById(R.id.btnVolver);
+        btnVolver.setOnClickListener(v -> finish());
 
         btnSubirFoto.setOnClickListener(v -> selectorDeImagen.launch("image/*"));
         btnConfirmar.setOnClickListener(v -> crearPerfilArtista());

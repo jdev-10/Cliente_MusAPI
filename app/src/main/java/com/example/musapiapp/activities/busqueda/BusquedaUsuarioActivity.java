@@ -21,6 +21,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
 public class BusquedaUsuarioActivity extends AppCompatActivity {
 
     private EditText etBusqueda;
@@ -36,7 +37,7 @@ public class BusquedaUsuarioActivity extends AppCompatActivity {
         rvUsuarios.setLayoutManager(new LinearLayoutManager(this));
 
         Button btnBuscar = findViewById(R.id.btnBuscar);
-        Button btnVolver = findViewById(R.id.btnVolver);
+        ImageButton btnVolver = findViewById(R.id.btnVolver);
 
         btnBuscar.setOnClickListener(v -> buscarUsuarios());
         btnVolver.setOnClickListener(v -> finish());

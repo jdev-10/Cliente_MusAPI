@@ -162,7 +162,7 @@ public class UcContenidoAdapter<T> extends RecyclerView.Adapter<RecyclerView.Vie
             if (urlFoto != null && !urlFoto.isEmpty()) {
                 Constantes.CargarImagen(urlFoto, imgFoto);
             } else {
-                imgFoto.setBackgroundColor(0xFFCCCCCC);
+                imgFoto.setBackgroundColor(0xFF333333);
             }
 
             // -- Lógica de Botones --
