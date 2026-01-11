@@ -33,7 +33,9 @@ import retrofit2.Response;
 
 public class PerfilArtistaActivity extends AppCompatActivity {
 
-    private int idArtista;
+    private int idUsuarioArtista = -1;
+    private int idPerfilArtista = -1;
+
     private TextView txtNombre, txtUsuario, txtDescripcion;
     private ImageView imgFoto;
     private LinearLayout menuArtista, menuOyente;
@@ -64,37 +66,54 @@ public class PerfilArtistaActivity extends AppCompatActivity {
 
         findViewById(R.id.btnVolver).setOnClickListener(v -> onBackPressed());
 
+
         BusquedaArtistaDTO artistaRecibido = getIntent().getParcelableExtra("artista");
         if (artistaRecibido != null) {
+            idPerfilArtista = artistaRecibido.getIdArtista();
             cargarVistaDesdeDTO(artistaRecibido);
-        } else {
-            idArtista = getIntent().getIntExtra("idArtista", -1);
-            if (idArtista == -1) {
-                Toast.makeText(this, "ID inválido", Toast.LENGTH_SHORT).show();
-                finish();
-                return;
+
+
+            if (idPerfilArtista != -1) {
+                cargarAlbumes(idPerfilArtista);
+                cargarSencillos(idPerfilArtista);
             }
-            cargarDatosArtista();
+            return;
         }
+
+
+        idUsuarioArtista = getIntent().getIntExtra("idArtista", -1);
+        if (idUsuarioArtista == -1) {
+            Toast.makeText(this, "ID inválido", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
+        cargarDatosArtista();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (idArtista != -1) {
+
+        if (reproductorHelper != null) {
+            reproductorHelper.refrescarEstadoActual();
+            Reproductor.inicializar(this, reproductorHelper);
+        }
+
+        if (idUsuarioArtista != -1) {
             cargarDatosArtista();
-            cargarAlbumes(idArtista);
-            cargarSencillos(idArtista);
-            if (reproductorHelper != null) {
-                reproductorHelper.refrescarEstadoActual();
-                Reproductor.inicializar(this, reproductorHelper);
-            }
+        }
+
+        if (idPerfilArtista != -1) {
+            cargarAlbumes(idPerfilArtista);
+            cargarSencillos(idPerfilArtista);
         }
     }
 
     private void cargarDatosArtista() {
         UsuarioServicio usuarioServicio = ApiCliente.getClient().create(UsuarioServicio.class);
-        usuarioServicio.obtenerPerfilArtista(idArtista)
+
+        usuarioServicio.obtenerPerfilArtista(idUsuarioArtista)
                 .enqueue(new Callback<RespuestaApi<BusquedaArtistaDTO>>() {
                     @Override
                     public void onResponse(Call<RespuestaApi<BusquedaArtistaDTO>> call,
@@ -104,7 +123,12 @@ public class PerfilArtistaActivity extends AppCompatActivity {
                         BusquedaArtistaDTO perfil = response.body().getDatos();
                         if (perfil == null) return;
 
+                        idPerfilArtista = perfil.getIdArtista();
+
                         cargarVistaDesdeDTO(perfil);
+
+                        cargarAlbumes(idPerfilArtista);
+                        cargarSencillos(idPerfilArtista);
                     }
 
                     @Override
@@ -114,9 +138,10 @@ public class PerfilArtistaActivity extends AppCompatActivity {
                 });
     }
 
-    private void cargarAlbumes(int idArtista) {
+    private void cargarAlbumes(int idPerfilArtista) {
         AlbumServicio albumServicio = ApiCliente.getClient().create(AlbumServicio.class);
-        albumServicio.obtenerAlbumesPublicos(idArtista)
+
+        albumServicio.obtenerAlbumesPublicos(idPerfilArtista)
                 .enqueue(new Callback<JsonObject>() {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -139,9 +164,10 @@ public class PerfilArtistaActivity extends AppCompatActivity {
                 });
     }
 
-    private void cargarSencillos(int idArtista) {
+    private void cargarSencillos(int idPerfilArtista) {
         CancionServicio cancionServicio = ApiCliente.getClient().create(CancionServicio.class);
-        cancionServicio.obtenerSencillosPorArtista(idArtista)
+
+        cancionServicio.obtenerSencillosPorArtista(idPerfilArtista)
                 .enqueue(new Callback<JsonObject>() {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -167,49 +193,71 @@ public class PerfilArtistaActivity extends AppCompatActivity {
     }
 
     private void cargarVistaDesdeDTO(BusquedaArtistaDTO perfil) {
-        this.idArtista = perfil.getIdArtista();
+
+        menuArtista.setVisibility(View.GONE);
+        menuOyente.setVisibility(View.GONE);
 
         txtNombre.setText(perfil.getNombre());
         txtUsuario.setText("@" + perfil.getNombreUsuario());
         txtDescripcion.setText(perfil.getDescripcion());
 
+        // Imagen
         if (perfil.getUrlFoto() != null && !perfil.getUrlFoto().isEmpty()) {
-            GlideUrl glideUrl = new GlideUrl(ApiCliente.getUrlArchivos() + perfil.getUrlFoto(),
+            GlideUrl glideUrl = new GlideUrl(
+                    ApiCliente.getUrlArchivos() + perfil.getUrlFoto(),
                     new LazyHeaders.Builder()
                             .addHeader("Authorization", "Bearer " + SesionUsuario.getToken())
-                            .build());
-            Glide.with(this).load(glideUrl).into(imgFoto);
+                            .build()
+            );
+            Glide.with(this)
+                    .load(glideUrl)
+                    .placeholder(R.drawable.ic_usuario_perfil)
+                    .error(R.drawable.ic_usuario_perfil)
+                    .into(imgFoto);
+        } else {
+            imgFoto.setImageResource(R.drawable.ic_usuario_perfil);
         }
 
-        if (perfil.getNombreUsuario().equals(SesionUsuario.getNombreUsuario())) {
+        // Guardamos idPerfil (tu DTO lo trae aquí)
+        idPerfilArtista = perfil.getIdArtista();
+
+        boolean esMiPerfil = perfil.getNombreUsuario().equals(SesionUsuario.getNombreUsuario());
+
+        if (esMiPerfil) {
             menuArtista.setVisibility(View.VISIBLE);
+
             findViewById(R.id.btnEstadisticas).setOnClickListener(v -> {
                 Intent intent = new Intent(this, EstadisticasContenidoSubidoActivity.class);
-                intent.putExtra("idPerfilArtista", perfil.getIdArtista());
+                intent.putExtra("idPerfilArtista", idPerfilArtista);
                 startActivity(intent);
             });
+
             findViewById(R.id.btnSubirContenido).setOnClickListener(v -> {
                 Intent intent = new Intent(this, SubirContenidoActivity.class);
-                intent.putExtra("idPerfilArtista", perfil.getIdArtista());
+                intent.putExtra("idPerfilArtista", idPerfilArtista);
                 startActivity(intent);
             });
 
             findViewById(R.id.btnEditarPerfil).setOnClickListener(v -> {
                 Intent intent = new Intent(this, EditarPerfilActivity.class);
-                intent.putExtra("idPerfilArtista", perfil.getIdArtista());
+                intent.putExtra("idPerfilArtista", idPerfilArtista);
                 startActivity(intent);
             });
+
         } else {
             menuOyente.setVisibility(View.VISIBLE);
+
             btnEvaluar.setOnClickListener(v ->
-                    new DialogEvaluarArtista(idArtista).show(getSupportFragmentManager(), "DialogEvaluar"));
+                    new DialogEvaluarArtista(idPerfilArtista)
+                            .show(getSupportFragmentManager(), "DialogEvaluar"));
 
             btnSeguir.setOnClickListener(v -> {
                 ContenidoGuardadoDTO dto = new ContenidoGuardadoDTO(
                         SesionUsuario.getIdUsuario(),
-                        perfil.getIdArtista(),
+                        idPerfilArtista,
                         "ARTISTA"
                 );
+
                 ContenidoGuardadoServicio servicio = ApiCliente.getClient().create(ContenidoGuardadoServicio.class);
                 servicio.guardarContenido(dto).enqueue(new Callback<RespuestaApi<String>>() {
                     @Override
@@ -236,8 +284,5 @@ public class PerfilArtistaActivity extends AppCompatActivity {
             intent.putExtra("artista", perfil);
             startActivity(intent);
         });
-
-        cargarAlbumes(perfil.getIdArtista());
-        cargarSencillos(perfil.getIdArtista());
     }
 }

@@ -54,6 +54,6 @@ dependencies {
     implementation("org.java-websocket:Java-WebSocket:1.5.3")
     implementation("androidx.work:work-runtime:2.8.1")
     implementation("com.google.guava:guava:31.1-android")
-
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
 
 }

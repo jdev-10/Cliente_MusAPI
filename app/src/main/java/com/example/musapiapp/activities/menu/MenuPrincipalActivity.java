@@ -105,7 +105,7 @@ public class MenuPrincipalActivity extends AppCompatActivity {
         rvArtistas = findViewById(R.id.rvArtistas);
         rvRecomendaciones = findViewById(R.id.rvRecomendaciones);
 
-        rvAlbumes.setLayoutManager(new LinearLayoutManager(this));
+        rvAlbumes.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         rvListas.setLayoutManager(new LinearLayoutManager(this));
         rvArtistas.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         rvRecomendaciones.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -130,7 +130,10 @@ public class MenuPrincipalActivity extends AppCompatActivity {
 
         btnCerrarSesion.setOnClickListener(v -> {
             SesionUsuario.clear();
-            startActivity(new Intent(this, com.example.musapiapp.activities.inicio.InicioSesionActivity.class));
+            Intent intent = new Intent(this, com.example.musapiapp.activities.inicio.InicioSesionActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+            startActivity(intent);
             finish();
         });
 
@@ -243,7 +246,6 @@ public class MenuPrincipalActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<RespuestaApi<List<BusquedaCancionDTO>>> call, Throwable t) {
-                        // Error silencioso en recomendaciones para no molestar al usuario
                         if (rvRecomendaciones != null) {
                             rvRecomendaciones.setVisibility(View.GONE);
                         }
