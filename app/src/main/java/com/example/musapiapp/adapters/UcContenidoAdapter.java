@@ -218,7 +218,7 @@ public class UcContenidoAdapter<T> extends RecyclerView.Adapter<RecyclerView.Vie
 
             if (esAdmin) {
                 btnGuardar.setVisibility(View.GONE);
-                btnDetalles.setIconResource(R.drawable.ic_back_black);
+                btnDetalles.setIconResource(R.drawable.ic_eliminar);
                 btnDetalles.setIconTint(ColorStateList.valueOf(0xFFB80000));
                 btnDetalles.setOnClickListener(v -> irADetalles(item));
 
