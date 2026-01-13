@@ -59,7 +59,7 @@ public class DetalleCancionActivity extends AppCompatActivity {
         }
     }
 
-    private void mostrarDatos(BusquedaCancionDTO c) {
+        private void mostrarDatos(BusquedaCancionDTO c) {
         txtNombre.setText(c.getNombre());
         txtAutor.setText(c.getNombreArtista());
         txtDuracion.setText(c.getDuracion());

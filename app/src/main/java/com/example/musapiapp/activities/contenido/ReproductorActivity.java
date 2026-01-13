@@ -127,7 +127,7 @@ public class ReproductorActivity extends AppCompatActivity implements Reproducto
         if (cancion != null) {
             txtCancion.setText(cancion.getNombre());
             txtArtista.setText(cancion.getNombreArtista());
-            cargarImagen(cancion.getUrlFoto(), imgPortada);
+            Constantes.CargarImagen(cancion.getUrlFoto(), imgPortada);
 
             int actual = Reproductor.getIndiceActual() + 1;
             int total = Reproductor.getListaCanciones().size();
@@ -135,33 +135,12 @@ public class ReproductorActivity extends AppCompatActivity implements Reproducto
         }
     }
 
-    private void cargarImagen(String url, ImageView destino) {
-        if (url == null || url.isEmpty()) return;
-
-        try {
-            String token = SesionUsuario.getToken();
-            String bearer = token != null ? "Bearer " + token : "";
-
-            GlideUrl glideUrl = new GlideUrl(
-                    Constantes.URL_BASE + url,
-                    new LazyHeaders.Builder()
-                            .addHeader("Authorization", bearer)
-                            .build()
-            );
-
-            Glide.with(this)
-                    .load(glideUrl)
-                    .placeholder(R.drawable.ic_album)
-                    .into(destino);
-
-        } catch (Exception e) {
-            ManejoErrores.mostrarToastError(this, e);
-        }
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (handler != null && actualizarSeekBarRunnable != null) {
+            handler.removeCallbacks(actualizarSeekBarRunnable);
+        }
         Reproductor.removerListener(this);
     }
 

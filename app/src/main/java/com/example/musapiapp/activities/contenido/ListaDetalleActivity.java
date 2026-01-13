@@ -89,7 +89,7 @@ public class ListaDetalleActivity extends AppCompatActivity {
         txtTitulo.setText(lista.getNombre());
         txtDescripcion.setText(lista.getDescripcion());
 
-        cargarImagen(lista.getUrlFoto(), imgPortada);
+        Constantes.CargarImagen(lista.getUrlFoto(), imgPortada);
 
         if (lista.getCanciones() != null) {
             mostrarCanciones(lista.getCanciones());
@@ -100,36 +100,6 @@ public class ListaDetalleActivity extends AppCompatActivity {
         UcContenidoAdapter<BusquedaCancionDTO> adapter = new UcContenidoAdapter<>(this, canciones, "CANCION", mostrarBotonGuardar);
         adapter.setListaCanciones(canciones);
         rvCanciones.setAdapter(adapter);
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    private void cargarImagen(String urlImagen, ImageView imageView) {
-        if (urlImagen == null || urlImagen.isEmpty()) return;
-
-        new AsyncTask<Void, Void, Bitmap>() {
-            @Override
-            protected Bitmap doInBackground(Void... voids) {
-                try {
-                    URL url = new URL(Constantes.URL_BASE + urlImagen);
-                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                    String token = SesionUsuario.getToken();
-                    con.setRequestProperty("Authorization", "Bearer " + token);
-                    con.setDoInput(true);
-                    con.connect();
-                    InputStream input = con.getInputStream();
-                    return BitmapFactory.decodeStream(input);
-                } catch (Exception e) {
-                    return null;
-                }
-            }
-
-            @Override
-            protected void onPostExecute(Bitmap bmp) {
-                if (bmp != null) {
-                    imageView.setImageBitmap(bmp);
-                }
-            }
-        }.execute();
     }
 
     @Override

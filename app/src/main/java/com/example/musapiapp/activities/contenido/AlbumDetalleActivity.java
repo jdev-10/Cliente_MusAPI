@@ -93,7 +93,7 @@ public class AlbumDetalleActivity extends AppCompatActivity {
         txtTitulo.setText(albumPublico.getNombreAlbum());
         txtAutor.setText(albumPublico.getNombreArtista());
         txtFecha.setText(albumPublico.getFechaPublicacion());
-        cargarImagen(albumPublico.getUrlFoto(), imgPortada);
+        Constantes.CargarImagen(albumPublico.getUrlFoto(), imgPortada);
 
         cargarCanciones(albumPublico.getCanciones());
         btnAgregarCancion.setVisibility(View.GONE);
@@ -108,7 +108,7 @@ public class AlbumDetalleActivity extends AppCompatActivity {
         txtTitulo.setText(albumPendiente.getNombre());
         txtAutor.setText(albumPendiente.getNombreArtista());
         txtFecha.setText("Pendiente");
-        cargarImagen(albumPendiente.getUrlFoto(), imgPortada);
+        Constantes.CargarImagen(albumPendiente.getUrlFoto(), imgPortada);
 
         btnEditar.setVisibility(View.GONE);
         btnAgregarCancion.setVisibility(View.VISIBLE);
@@ -195,38 +195,6 @@ public class AlbumDetalleActivity extends AppCompatActivity {
         long m = (totalSegundos % 3600) / 60;
         long s = totalSegundos % 60;
         String duracion = String.format("%02d:%02d:%02d", h, m, s);
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    private void cargarImagen(String urlImagen, ImageView imageView) {
-        if (urlImagen == null || urlImagen.isEmpty()) return;
-
-        new AsyncTask<Void, Void, Bitmap>() {
-            @Override
-            protected Bitmap doInBackground(Void... voids) {
-                try {
-                    URL url = new URL(Constantes.URL_BASE + urlImagen);
-                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                    String token = SesionUsuario.getToken();
-                    con.setRequestProperty("Authorization", "Bearer " + token);
-                    con.setDoInput(true);
-                    con.connect();
-                    InputStream input = con.getInputStream();
-                    Bitmap bmp = BitmapFactory.decodeStream(input);
-                    input.close();
-                    return bmp;
-                } catch (Exception e) {
-                    return null;
-                }
-            }
-
-            @Override
-            protected void onPostExecute(Bitmap bmp) {
-                if (bmp != null) {
-                    imageView.setImageBitmap(bmp);
-                }
-            }
-        }.execute();
     }
 
     @Override
