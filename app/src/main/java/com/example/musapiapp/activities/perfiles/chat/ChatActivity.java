@@ -97,7 +97,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void conectarWebSocket() {
-        URI uri = URI.create(Constantes.URL_BASE.replace("http", "ws") + "/ws/" + idPerfilArtista);
+        URI uri = URI.create(Constantes.URL_WS + idPerfilArtista);
 
         webSocketClient = new WebSocketClient(uri) {
             @Override
@@ -125,6 +125,7 @@ public class ChatActivity extends AppCompatActivity {
 
         webSocketClient.connect();
     }
+
 
     private void mostrarMensaje(ChatMessageDTO mensaje) {
         TextView txt = new TextView(this);

@@ -19,8 +19,9 @@ public class Constantes {
     //public static final String PUERTO   = "8088";
     //Localhost
     //public static final String URL_BASE = "http://10.0.2.2:"+PUERTO;
-    public static final String URL_BASE = "https://commutatively-unstrategic-felipe.ngrok-free.dev:";
+    public static final String URL_BASE = "https://commutatively-unstrategic-felipe.ngrok-free.dev";
     public static final String URL_API  = URL_BASE + "/api/";
+    public static final String URL_WS   = "wss://commutatively-unstrategic-felipe.ngrok-free.dev/ws/";
 /*
     @SuppressLint("StaticFieldLeak")
     public static void CargarImagen(String urlImagen, ImageView imageView) {
