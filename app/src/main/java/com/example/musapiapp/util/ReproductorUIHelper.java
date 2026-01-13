@@ -37,7 +37,6 @@ public class ReproductorUIHelper implements Reproductor.ReproductorListener {
 
         btnMiniPlayPause.setOnClickListener(v -> Reproductor.pausarReanudar());
 
-        // Mostrar estado actual si ya hay reproducción
         BusquedaCancionDTO actual = Reproductor.getCancionActual();
         barraReproductor.setOnClickListener(v -> {
             Log.d("Reproductor", "debería abrir el reproductor grande");

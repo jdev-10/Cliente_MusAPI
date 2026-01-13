@@ -27,8 +27,8 @@ import retrofit2.Response;
 public class InicioSesionActivity extends AppCompatActivity {
 
     private EditText etCorreo, etContrasenia;
-    private Button btnLogin, btnExit; // btnRegister sale de aquí
-    private TextView btnRegister;     // Y se declara como TextView independiente
+    private Button btnLogin, btnExit;
+    private TextView btnRegister;
     private UsuarioServicio usuarioServicio;
 
     @Override
@@ -80,12 +80,10 @@ public class InicioSesionActivity extends AppCompatActivity {
                     return;
                 }
 
-                // Guardar token
                 String token = datos.get("token").getAsString();
                 ApiCliente.setToken(token);
                 SesionUsuario.setToken(token);
 
-                // Guardar los datos del usuario
                 SesionUsuario.setIdUsuario(datos.get("idUsuario").getAsInt());
                 SesionUsuario.setNombre(datos.get("nombre").getAsString());
                 SesionUsuario.setNombreUsuario(datos.get("nombreUsuario").getAsString());
@@ -94,7 +92,6 @@ public class InicioSesionActivity extends AppCompatActivity {
                 SesionUsuario.setAdmin(datos.get("esAdmin").getAsBoolean());
                 SesionUsuario.setArtista(datos.get("esArtista").getAsBoolean());
 
-                // Ir a pantalla principal
                 startActivity(new Intent(InicioSesionActivity.this,
                         com.example.musapiapp.activities.menu.MenuPrincipalActivity.class));
                 finish();

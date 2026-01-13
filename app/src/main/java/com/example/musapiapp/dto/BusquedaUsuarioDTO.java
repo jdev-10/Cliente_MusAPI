@@ -72,8 +72,6 @@ public class BusquedaUsuarioDTO implements Parcelable {
         return 0;
     }
 
-    // Getters y setters
-
     public int getIdUsuario() {
         return idUsuario;
     }

@@ -72,7 +72,6 @@ public class UcContenidoAdapter<T> extends RecyclerView.Adapter<RecyclerView.Vie
     private final Context context;
     private int idArtista = -1;
 
-    // Ya no dependemos estrictamente de esta variable externa para reproducir
     private List<BusquedaCancionDTO> listaCanciones;
 
     private int indice = 0;
@@ -171,10 +170,6 @@ public class UcContenidoAdapter<T> extends RecyclerView.Adapter<RecyclerView.Vie
         }
     }
 
-
-    // =================================================================================
-    // 1. VIEWHOLDER LISTA (CANCIONES, LISTAS)
-    // =================================================================================
     public class ListViewHolder extends RecyclerView.ViewHolder {
         private final ImageView imgFoto;
         private final TextView tvNombre;
@@ -227,7 +222,6 @@ public class UcContenidoAdapter<T> extends RecyclerView.Adapter<RecyclerView.Vie
                 btnDetalles.setIconTint(ColorStateList.valueOf(0xFFB80000));
                 btnDetalles.setOnClickListener(v -> irADetalles(item));
 
-                // (Opcional) click del item para admin
                 itemView.setOnClickListener(v -> irADetalles(item));
 
             } else {
@@ -238,7 +232,6 @@ public class UcContenidoAdapter<T> extends RecyclerView.Adapter<RecyclerView.Vie
                 btnGuardar.setOnClickListener(v -> onClickGuardar(item));
                 btnDetalles.setOnClickListener(v -> irADetalles(item));
 
-                // Click principal reproduce
                 itemView.setOnClickListener(v -> reproducirItem(getBindingAdapterPosition()));
             }
         }
@@ -440,7 +433,6 @@ public class UcContenidoAdapter<T> extends RecyclerView.Adapter<RecyclerView.Vie
     private void reproducirItem(int pos) {
         if (pos == RecyclerView.NO_POSITION) return;
 
-        // Reproducción de Canciones
         if ("CANCION".equals(tipo)) {
             ArrayList<BusquedaCancionDTO> listaParaReproducir;
 
@@ -460,7 +452,6 @@ public class UcContenidoAdapter<T> extends RecyclerView.Adapter<RecyclerView.Vie
                 context.startActivity(new Intent(context, ReproductorActivity.class));
             }
         }
-        // Reproducción de Álbumes
         else if ("ALBUM".equals(tipo)) {
             List<BusquedaAlbumDTO> albumes = (List<BusquedaAlbumDTO>) items;
             if (albumes.get(pos).getCanciones() != null && !albumes.get(pos).getCanciones().isEmpty()) {
@@ -471,7 +462,6 @@ public class UcContenidoAdapter<T> extends RecyclerView.Adapter<RecyclerView.Vie
                 Toast.makeText(context, "El álbum no tiene canciones", Toast.LENGTH_SHORT).show();
             }
         }
-        // Reproducción de Listas
         else if ("LISTA".equals(tipo)) {
             List<ListaDeReproduccionDTO> listas = (List<ListaDeReproduccionDTO>) items;
             ListaDeReproduccionDTO listaSel = listas.get(pos);

@@ -29,16 +29,7 @@ public class DetalleCancionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // EdgeToEdge.enable(this);
         setContentView(R.layout.activity_detalle_cancion);
-
-        /*
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets sys = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(sys.left, sys.top, sys.right, sys.bottom);
-            return insets;
-        });*/
-
         imgFoto = findViewById(R.id.imgFoto);
         txtNombre = findViewById(R.id.txtNombre);
         txtAutor = findViewById(R.id.txtAutor);
@@ -52,7 +43,6 @@ public class DetalleCancionActivity extends AppCompatActivity {
 
         ImageButton btnVolverHeader = findViewById(R.id.btnVolverHeader);
         btnVolverHeader.setOnClickListener(v -> finish());
-        // -------------------------------
 
         try {
             BusquedaCancionDTO cancion = getIntent().getParcelableExtra("cancion");

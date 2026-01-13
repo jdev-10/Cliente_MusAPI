@@ -65,7 +65,6 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Bind views
         txtNombre             = findViewById(R.id.txtNombre);
         txtUsuario            = findViewById(R.id.txtUsuario);
         btnVolver             = findViewById(R.id.btnVolver);

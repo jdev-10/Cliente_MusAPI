@@ -71,13 +71,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //EdgeToEdge.enable(this);
         setContentView(R.layout.activity_editar_perfil);
-        /*ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets sys = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(sys.left, sys.top, sys.right, sys.bottom);
-            return insets;
-        });*/
 
         usuarioServicio = ApiCliente.getClient().create(UsuarioServicio.class);
 
@@ -102,7 +96,6 @@ public class EditarPerfilActivity extends AppCompatActivity {
         List<Pais> countries = new ArrayList<>();
         countries.add(new Pais("AR","Argentina"));
         countries.add(new Pais("BO","Bolivia"));
-        // ... agrega los demás como en tu registro ...
 
         Collections.sort(countries, Comparator.comparing(Pais::getNombre, String.CASE_INSENSITIVE_ORDER));
         ArrayAdapter<Pais> adapter = new ArrayAdapter<>(this,

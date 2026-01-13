@@ -8,7 +8,6 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface NotificacionServicio {
-
     @GET("notificaciones/pendientes/{idUsuario}")
     Call<List<NotificacionDTO>> obtenerPendientes(@Path("idUsuario") int idUsuario);
 

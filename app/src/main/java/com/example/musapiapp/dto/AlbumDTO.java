@@ -4,10 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Equivalente en Android de ClienteMusAPI.DTOs.AlbumDTO (WPF),
- * ahora implementando Parcelable para poder enviarlo por Intents.
- */
 public class AlbumDTO implements Parcelable {
 
     @SerializedName("nombre")
@@ -19,17 +15,13 @@ public class AlbumDTO implements Parcelable {
     @SerializedName("fotoPath")
     private String fotoPath;
 
-    // Constructor vacío para Gson
     public AlbumDTO() { }
 
-    // Constructor con todos los campos
     public AlbumDTO(String nombre, int idUsuario, String fotoPath) {
         this.nombre = nombre;
         this.idUsuario = idUsuario;
         this.fotoPath = fotoPath;
     }
-
-    // —— Parcelable implementation ——
 
     protected AlbumDTO(Parcel in) {
         nombre    = in.readString();
@@ -60,8 +52,6 @@ public class AlbumDTO implements Parcelable {
             return new AlbumDTO[size];
         }
     };
-
-    // —— Getters & Setters ——
 
     public String getNombre() {
         return nombre;

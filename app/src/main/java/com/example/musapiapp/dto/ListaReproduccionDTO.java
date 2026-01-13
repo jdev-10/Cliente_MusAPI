@@ -4,10 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Equivalente en Android de ClienteMusAPI.DTOs.ListaReproduccionDTO (WPF),
- * implementando Parcelable para enviarlo por Intents.
- */
 public class ListaReproduccionDTO implements Parcelable {
 
     @SerializedName("Nombre")
@@ -22,10 +18,8 @@ public class ListaReproduccionDTO implements Parcelable {
     @SerializedName("FotoPath")
     private String fotoPath;
 
-    // Constructor vacío para Gson
     public ListaReproduccionDTO() { }
 
-    // Constructor con todos los campos
     public ListaReproduccionDTO(String nombre,
                                 String descripcion,
                                 int idUsuario,
@@ -35,8 +29,6 @@ public class ListaReproduccionDTO implements Parcelable {
         this.idUsuario = idUsuario;
         this.fotoPath = fotoPath;
     }
-
-    // —— Parcelable implementation ——
 
     protected ListaReproduccionDTO(Parcel in) {
         nombre      = in.readString();
@@ -68,8 +60,6 @@ public class ListaReproduccionDTO implements Parcelable {
             return new ListaReproduccionDTO[size];
         }
     };
-
-    // —— Getters & Setters ——
 
     public String getNombre() {
         return nombre;

@@ -5,10 +5,6 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
-/**
- * Equivalente en Android de ClienteMusAPI.DTOs.BusquedaAlbumDTO (WPF),
- * ahora implementando Parcelable para poder enviarlo por Intents.
- */
 public class BusquedaAlbumDTO implements Parcelable {
 
     @SerializedName("idAlbum")
@@ -29,10 +25,8 @@ public class BusquedaAlbumDTO implements Parcelable {
     @SerializedName("canciones")
     private List<BusquedaCancionDTO> canciones;
 
-    // Constructor vacío para Gson
     public BusquedaAlbumDTO() { }
 
-    // Constructor con todos los campos
     public BusquedaAlbumDTO(int idAlbum,
                             String nombreAlbum,
                             String nombreArtista,
@@ -46,8 +40,6 @@ public class BusquedaAlbumDTO implements Parcelable {
         this.urlFoto = urlFoto;
         this.canciones = canciones;
     }
-
-    // —— Parcelable implementation ——
 
     protected BusquedaAlbumDTO(Parcel in) {
         idAlbum          = in.readInt();
@@ -83,8 +75,6 @@ public class BusquedaAlbumDTO implements Parcelable {
             return new BusquedaAlbumDTO[size];
         }
     };
-
-    // —— Getters & Setters ——
 
     public int getIdAlbum() {
         return idAlbum;

@@ -201,7 +201,6 @@ public class PerfilArtistaActivity extends AppCompatActivity {
         txtUsuario.setText("@" + perfil.getNombreUsuario());
         txtDescripcion.setText(perfil.getDescripcion());
 
-        // Imagen
         if (perfil.getUrlFoto() != null && !perfil.getUrlFoto().isEmpty()) {
             GlideUrl glideUrl = new GlideUrl(
                     ApiCliente.getUrlArchivos() + perfil.getUrlFoto(),
@@ -218,7 +217,6 @@ public class PerfilArtistaActivity extends AppCompatActivity {
             imgFoto.setImageResource(R.drawable.ic_usuario_perfil);
         }
 
-        // Guardamos idPerfil (tu DTO lo trae aquí)
         idPerfilArtista = perfil.getIdArtista();
 
         boolean esMiPerfil = perfil.getNombreUsuario().equals(SesionUsuario.getNombreUsuario());

@@ -13,28 +13,15 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
-/**
- * Retrofit interface equivalente a ClienteMusAPI.Servicios.CategoriaMusicalServicio (WPF).
- */
 public interface CategoriaMusicalServicio {
 
-    /**
-     * Obtener todas las categorías musicales.
-     * GET /categoriasMusicales
-     * Respuesta JSON: { "mensaje": "...", "datos": [ { ... }, ... ] }
-     */
     @GET("categoriasMusicales")
     Call<JsonObject> obtenerCategorias();
 
-    /**
-     * Registrar una nueva categoría musical.
-     * POST /categoriasMusicales/registrar
-     * Body JSON: CategoriaMusicalDTO
-     */
     @POST("categoriasMusicales/registrar")
-    Call<JsonObject> registrarCategoriaJson(@Body CategoriaMusicalDTO categoria); // adicional
+    Call<JsonObject> registrarCategoriaJson(@Body CategoriaMusicalDTO categoria);
 
     @PUT("categoriasMusicales/{id}")
-    Call<JsonObject> editarCategoriaJson(@Path("id") int idCategoria, @Body CategoriaMusicalDTO categoriaSinId); // adicional
+    Call<JsonObject> editarCategoriaJson(@Path("id") int idCategoria, @Body CategoriaMusicalDTO categoriaSinId);
 
 }

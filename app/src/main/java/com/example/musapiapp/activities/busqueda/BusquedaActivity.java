@@ -69,7 +69,6 @@ public class BusquedaActivity extends AppCompatActivity {
                 startActivity(new Intent(this, com.example.musapiapp.activities.perfiles.PerfilUsuarioActivity.class))
         );
 
-        // Si se invocó con un texto desde el menú principal
         String query = getIntent().getStringExtra("query");
         if (query != null) {
             etBusqueda.setText(query);
@@ -86,12 +85,11 @@ public class BusquedaActivity extends AppCompatActivity {
 
     private void buscarContenido() {
         String texto = etBusqueda.getText().toString().trim();
-        String tipoSeleccionado = spinnerTipo.getSelectedItem().toString(); // "Canción", "Álbum", "Artista"
+        String tipoSeleccionado = spinnerTipo.getSelectedItem().toString();
 
         if (texto.isEmpty()) return;
 
-        rvResultados.setAdapter(null); // limpiar resultados
-
+        rvResultados.setAdapter(null);
         switch (tipoSeleccionado) {
             case "Canción":
                 CancionServicio cancionSvc = ApiCliente.getClient().create(CancionServicio.class);

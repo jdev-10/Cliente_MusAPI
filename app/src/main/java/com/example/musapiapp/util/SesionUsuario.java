@@ -1,9 +1,5 @@
 package com.example.musapiapp.util;
 
-/**
- * Contenedor estático en memoria para los datos de sesión del usuario,
- * adaptado del patrón usado en WPF (SesionUsuario.cs).
- */
 public class SesionUsuario {
     private static int    idUsuario;
     private static String nombreUsuario = "";
@@ -14,10 +10,8 @@ public class SesionUsuario {
     private static boolean esArtista;
     private static String  token        = "";
 
-    // Constructor privado para evitar instanciación
     private void SessionUsuario() { }
 
-    // Getters & Setters
     public static int getIdUsuario() {
         return idUsuario;
     }
@@ -58,15 +52,8 @@ public class SesionUsuario {
         correo = c;
     }
 
-    public static boolean isAdmin() {
-        return esAdmin;
-    }
     public static boolean getEsAdmin() {
         return esAdmin;
-    }
-
-    public static void setEsAdmin(boolean admin) {
-        esAdmin = admin;
     }
 
     public static void setAdmin(boolean admin) {
@@ -89,9 +76,6 @@ public class SesionUsuario {
         token = t;
     }
 
-    /**
-     * Limpia todos los datos de sesión, devolviéndolos a sus valores por defecto.
-     */
     public static void clear() {
         idUsuario     = 0;
         nombreUsuario = "";

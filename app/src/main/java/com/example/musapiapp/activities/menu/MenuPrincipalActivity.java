@@ -167,7 +167,6 @@ public class MenuPrincipalActivity extends AppCompatActivity {
         Type typeLista = new TypeToken<List<ListaDeReproduccionDTO>>() {}.getType();
         Type typeArtista = new TypeToken<List<BusquedaArtistaDTO>>() {}.getType();
 
-        // — Álbumes —
         servicio.obtenerAlbumesGuardados(idUsuario).enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> resp) {

@@ -55,12 +55,6 @@ public class CrearListaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_lista);
 
-        /*ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });*/
-
         etNombre = findViewById(R.id.etNombreLista);
         etDescripcion = findViewById(R.id.etDescripcion);
         imgPortada = findViewById(R.id.imgPortada);
@@ -69,7 +63,6 @@ public class CrearListaActivity extends AppCompatActivity {
         btnCancelar = findViewById(R.id.btnCancelar);
         btnVolver = findViewById(R.id.btnVolver);
 
-        // Verificar si estamos editando
         if (getIntent().hasExtra("lista")) {
             esEdicion = true;
             listaEditar = new Gson().fromJson(getIntent().getStringExtra("lista"), ListaDeReproduccionDTO.class);
@@ -119,7 +112,6 @@ public class CrearListaActivity extends AppCompatActivity {
 
         ListaServicio servicio = ApiCliente.getClient().create(ListaServicio.class);
 
-        // Datos textuales
         RequestBody rbNombre = RequestBody.create(nombre, MediaType.parse("text/plain"));
         RequestBody rbDescripcion = RequestBody.create(descripcion, MediaType.parse("text/plain"));
         RequestBody rbIdUsuario = RequestBody.create(

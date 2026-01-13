@@ -10,7 +10,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface RecomendacionServicio {
-
     @GET("recomendaciones")
     Call<RespuestaApi<List<BusquedaCancionDTO>>> obtenerRecomendaciones(
             @Query("idUsuario") int idUsuario

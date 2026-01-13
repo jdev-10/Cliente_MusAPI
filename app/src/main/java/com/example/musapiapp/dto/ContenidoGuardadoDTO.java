@@ -4,10 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Equivalente en Android de ClienteMusAPI.DTOs.ContenidoGuardadoDTO (WPF),
- * implementando Parcelable para enviarlo por Intents.
- */
 public class ContenidoGuardadoDTO implements Parcelable {
 
     @SerializedName("idUsuario")
@@ -19,17 +15,13 @@ public class ContenidoGuardadoDTO implements Parcelable {
     @SerializedName("tipoDeContenido")
     private String tipoDeContenido;
 
-    // Constructor vacío para Gson
     public ContenidoGuardadoDTO() { }
 
-    // Constructor con todos los campos
     public ContenidoGuardadoDTO(int idUsuario, int idContenidoGuardado, String tipoDeContenido) {
         this.idUsuario = idUsuario;
         this.idContenidoGuardado = idContenidoGuardado;
         this.tipoDeContenido = tipoDeContenido;
     }
-
-    // —— Parcelable implementation ——
 
     protected ContenidoGuardadoDTO(Parcel in) {
         idUsuario = in.readInt();
@@ -59,8 +51,6 @@ public class ContenidoGuardadoDTO implements Parcelable {
             return new ContenidoGuardadoDTO[size];
         }
     };
-
-    // —— Getters & Setters ——
 
     public int getIdUsuario() {
         return idUsuario;

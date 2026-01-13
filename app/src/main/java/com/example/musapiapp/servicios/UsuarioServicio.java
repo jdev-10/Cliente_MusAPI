@@ -18,31 +18,14 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.*;
 
-/**
- * Retrofit interface equivalente a ClienteMusAPI.Servicios.UsuarioServicio (WPF).
- */
 public interface UsuarioServicio {
 
-    /**
-     * Registrar un nuevo usuario.
-     * POST /usuarios/registrar
-     * Body JSON: UsuarioDTO
-     */
     @POST("usuarios/registrar")
     Call<RespuestaCliente> registrarUsuario(@Body UsuarioDTO usuario);
 
-    /**
-     * Iniciar sesión y obtener datos + token.
-     * POST /usuarios/login
-     * Body JSON: LoginRequest
-     */
     @POST("usuarios/login")
     Call<JsonObject> iniciarSesion(@Body LoginRequest loginRequest);
 
-    /**
-     * Editar perfil de usuario (campos opcionales + foto).
-     * PUT /usuarios/{idUsuario}/editar-perfil
-     */
     @Multipart
     @PUT("usuarios/{idUsuario}/editar-perfil")
     Call<RespuestaCliente> editarPerfil(
@@ -51,40 +34,23 @@ public interface UsuarioServicio {
             @Part("nombreUsuario") RequestBody nombreUsuario,
             @Part("pais") RequestBody pais,
             @Part("descripcion") RequestBody descripcion,
-            @Part MultipartBody.Part foto               // puede ser null
+            @Part MultipartBody.Part foto
     );
 
-    /**
-     * Crear perfil de artista para el usuario.
-     * POST /usuarios/crear-perfilArtista
-     */
     @Multipart
     @POST("usuarios/crear-perfilArtista")
     Call<RespuestaCliente> crearPerfilArtista(
             @Part("idUsuario") RequestBody idUsuario,
             @Part("descripcion") RequestBody descripcion,
-            @Part MultipartBody.Part foto               // puede ser null
+            @Part MultipartBody.Part foto
     );
 
-    /**
-     * Obtener perfil de artista.
-     * GET /usuarios/artista/{idArtista}
-     */
     @GET("usuarios/artista/{idArtista}")
     Call<RespuestaApi<BusquedaArtistaDTO>> obtenerPerfilArtista(@Path("idArtista") int idArtista);
 
-    /**
-     * Buscar artistas por texto.
-     * GET /usuarios/artistas/buscar?texto=…
-     */
     @GET("usuarios/artistas/buscar")
     Call<RespuestaApi<List<BusquedaArtistaDTO>>> buscarArtista(@Query("texto") String texto);
 
-    /**
-     * Registrar evaluación de artista.
-     * POST /evaluaciones/registrar
-     * Body JSON: EvaluacionDTO
-     */
     @POST("evaluaciones/registrar")
     Call<RespuestaApi<String>> evaluarArtista(@Body EvaluacionDTO evaluacionDTO);
 

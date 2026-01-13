@@ -7,10 +7,6 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Equivalente en Android de ClienteMusAPI.DTOs.CancionDTO (WPF),
- * implementando Parcelable para enviarlo por Intents.
- */
 public class CancionDTO implements Parcelable {
 
     @SerializedName("nombre")
@@ -37,10 +33,8 @@ public class CancionDTO implements Parcelable {
     @SerializedName("idPerfilArtistas")
     private List<Integer> idPerfilArtistas;
 
-    // Constructor vacío para Gson
     public CancionDTO() { }
 
-    // Constructor con todos los campos
     public CancionDTO(String nombre,
                       String archivoCancion,
                       String urlFoto,
@@ -58,8 +52,6 @@ public class CancionDTO implements Parcelable {
         this.posicionEnAlbum = posicionEnAlbum;
         this.idPerfilArtistas = idPerfilArtistas;
     }
-
-    // —— Parcelable implementation ——
 
     protected CancionDTO(Parcel in) {
         nombre             = in.readString();
@@ -100,8 +92,6 @@ public class CancionDTO implements Parcelable {
             return new CancionDTO[size];
         }
     };
-
-    // —— Getters & Setters ——
 
     public String getNombre() {
         return nombre;

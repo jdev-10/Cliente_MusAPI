@@ -52,7 +52,7 @@ public class CategoriasMusicalesActivity extends AppCompatActivity {
             startActivityForResult(intent, 1001);
         });
 
-        cargarCategorias(); // Similar a Page_Loaded
+        cargarCategorias();
     }
 
     private void cargarCategorias() {

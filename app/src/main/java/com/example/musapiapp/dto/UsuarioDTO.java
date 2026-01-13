@@ -4,14 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Equivalente en Android de ClienteMusAPI.Modelo.UsuarioDTO (WPF),
- * implementando Parcelable para enviarlo por Intents.
- * El campo idUsuario se ignora en JSON, al igual que JsonIgnore.
- */
 public class UsuarioDTO implements Parcelable {
 
-    // Ignorado en JSON (transient evita que Gson lo serialice)
     private transient int idUsuario;
 
     @SerializedName("nombre")
@@ -35,10 +29,8 @@ public class UsuarioDTO implements Parcelable {
     @SerializedName("esArtista")
     private boolean esArtista;
 
-    // Constructor vacío para Gson
     public UsuarioDTO() { }
 
-    // Constructor con todos los campos
     public UsuarioDTO(int idUsuario,
                       String nombre,
                       String correo,
@@ -56,8 +48,6 @@ public class UsuarioDTO implements Parcelable {
         this.esAdmin = esAdmin;
         this.esArtista = esArtista;
     }
-
-    // —— Parcelable implementation ——
 
     protected UsuarioDTO(Parcel in) {
         idUsuario     = in.readInt();
@@ -97,8 +87,6 @@ public class UsuarioDTO implements Parcelable {
             return new UsuarioDTO[size];
         }
     };
-
-    // —— Getters & Setters ——
 
     public int getIdUsuario() {
         return idUsuario;

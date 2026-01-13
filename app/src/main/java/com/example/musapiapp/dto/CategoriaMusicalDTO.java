@@ -4,10 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Equivalente en Android de ClienteMusAPI.DTOs.CategoriaMusicalDTO (WPF),
- * implementando Parcelable para poder enviarlo por Intents.
- */
 public class CategoriaMusicalDTO implements Parcelable {
 
     @SerializedName("nombre")
@@ -17,19 +13,15 @@ public class CategoriaMusicalDTO implements Parcelable {
     private String descripcion;
 
     @SerializedName("idCategoriaMusical")
-    private Integer idCategoriaMusical;  // Nullable
+    private Integer idCategoriaMusical;
 
-    // Constructor vacío para Gson
     public CategoriaMusicalDTO() { }
 
-    // Constructor con todos los campos
     public CategoriaMusicalDTO(String nombre, String descripcion, Integer idCategoriaMusical) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.idCategoriaMusical = idCategoriaMusical;
     }
-
-    // —— Parcelable implementation ——
 
     protected CategoriaMusicalDTO(Parcel in) {
         nombre = in.readString();
@@ -59,8 +51,6 @@ public class CategoriaMusicalDTO implements Parcelable {
             return new CategoriaMusicalDTO[size];
         }
     };
-
-    // —— Getters & Setters ——
 
     public String getNombre() {
         return nombre;

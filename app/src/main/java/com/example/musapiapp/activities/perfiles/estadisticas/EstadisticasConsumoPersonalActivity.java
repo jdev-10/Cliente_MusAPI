@@ -73,7 +73,6 @@ public class EstadisticasConsumoPersonalActivity extends AppCompatActivity {
 
                 EstadisticasPersonalesDTO dto = response.body().getDatos();
 
-                // Artistas
                 if (!dto.getTopArtistas().isEmpty()) {
                     StringBuilder sb = new StringBuilder();
                     int i = 1;
@@ -85,7 +84,6 @@ public class EstadisticasConsumoPersonalActivity extends AppCompatActivity {
                     tvArtistas.setText("Ningún artista registrado en este periodo.");
                 }
 
-                // Canciones
                 if (!dto.getTopCanciones().isEmpty()) {
                     StringBuilder sb = new StringBuilder();
                     int i = 1;
@@ -97,7 +95,6 @@ public class EstadisticasConsumoPersonalActivity extends AppCompatActivity {
                     tvCanciones.setText("Ninguna canción registrada en este periodo.");
                 }
 
-                // Tiempo
                 long segundos = dto.getSegundosEscuchados();
                 long min = segundos / 60;
                 long seg = segundos % 60;

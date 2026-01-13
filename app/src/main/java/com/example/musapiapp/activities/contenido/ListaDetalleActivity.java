@@ -102,7 +102,6 @@ public class ListaDetalleActivity extends AppCompatActivity {
         rvCanciones.setAdapter(adapter);
     }
 
-    // Mantenemos tu lógica de carga de imagen con AsyncTask tal cual la tenías
     @SuppressLint("StaticFieldLeak")
     private void cargarImagen(String urlImagen, ImageView imageView) {
         if (urlImagen == null || urlImagen.isEmpty()) return;
@@ -136,9 +135,6 @@ public class ListaDetalleActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Recargar datos por si se editó la lista en la otra pantalla
-        // Nota: Idealmente deberías recargar la lista de la API aquí, 
-        // pero mantenemos tu lógica actual de cargarDatos() con el objeto local.
         cargarDatos(); 
 
         if (reproductorHelper != null) {

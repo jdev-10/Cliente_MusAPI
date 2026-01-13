@@ -4,10 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Equivalente en Android de ClienteMusAPI.DTOs.EdicionPerfilDTO (WPF),
- * implementando Parcelable para enviarlo por Intents.
- */
 public class EdicionPerfilDTO implements Parcelable {
 
     @SerializedName("nombre")
@@ -19,17 +15,14 @@ public class EdicionPerfilDTO implements Parcelable {
     @SerializedName("pais")
     private String pais;
 
-    // Solo para artistas
     @SerializedName("descripcion")
     private String descripcion;
 
     @SerializedName("foto")
     private String foto;
 
-    // Constructor vacío para Gson
     public EdicionPerfilDTO() { }
 
-    // Constructor con todos los campos
     public EdicionPerfilDTO(String nombre,
                             String nombreUsuario,
                             String pais,
@@ -41,8 +34,6 @@ public class EdicionPerfilDTO implements Parcelable {
         this.descripcion = descripcion;
         this.foto = foto;
     }
-
-    // —— Parcelable implementation ——
 
     protected EdicionPerfilDTO(Parcel in) {
         nombre         = in.readString();
@@ -76,8 +67,6 @@ public class EdicionPerfilDTO implements Parcelable {
             return new EdicionPerfilDTO[size];
         }
     };
-
-    // —— Getters & Setters ——
 
     public String getNombre() {
         return nombre;

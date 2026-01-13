@@ -4,10 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Equivalente en Android de ClienteMusAPI.DTOs.EvaluacionDTO (WPF),
- * implementando Parcelable para enviarlo por Intents.
- */
 public class EvaluacionDTO implements Parcelable {
 
     @SerializedName("idUsuario")
@@ -22,18 +18,14 @@ public class EvaluacionDTO implements Parcelable {
     @SerializedName("calificacion")
     private int calificacion;
 
-    // Constructor vacío para Gson
     public EvaluacionDTO() { }
 
-    // Constructor con todos los campos
     public EvaluacionDTO(int idUsuario, int idArtista, String comentario, int calificacion) {
         this.idUsuario = idUsuario;
         this.idArtista = idArtista;
         this.comentario = comentario;
         this.calificacion = calificacion;
     }
-
-    // —— Parcelable implementation ——
 
     protected EvaluacionDTO(Parcel in) {
         idUsuario   = in.readInt();
@@ -66,8 +58,6 @@ public class EvaluacionDTO implements Parcelable {
             return new EvaluacionDTO[size];
         }
     };
-
-    // —— Getters & Setters ——
 
     public int getIdUsuario() {
         return idUsuario;

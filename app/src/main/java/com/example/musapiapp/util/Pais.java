@@ -1,8 +1,5 @@
 package com.example.musapiapp.util;
 
-/**
- * Equivalente en Android de la clase ClienteMusAPI.Clases.Pais (WPF).
- */
 public class Pais {
     private String codigo;
     private String nombre;

@@ -63,7 +63,6 @@ public class CrearAlbumActivity extends AppCompatActivity {
         ImageButton btnVolverHeader = findViewById(R.id.btnVolverHeader);
         btnVolverHeader.setOnClickListener(v -> finish());
 
-        // Detectar si venimos a editar
         if (getIntent().hasExtra("album")) {
             esEdicion = true;
             BusquedaAlbumDTO album = new Gson().fromJson(getIntent().getStringExtra("album"), BusquedaAlbumDTO.class);
@@ -140,11 +139,9 @@ public class CrearAlbumActivity extends AppCompatActivity {
         AlbumServicio servicio = ApiCliente.getClient().create(AlbumServicio.class);
 
         if (!esEdicion) {
-            // Crear nuevo álbum
             servicio.crearAlbum(nombreRB, idUsuarioRB, fotoPart)
                     .enqueue(getCallback("Álbum creado exitosamente"));
         } else {
-            // Editar álbum existente
             RequestBody idAlbumRB = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(idAlbumEditar));
             servicio.editarAlbum(nombreRB, idAlbumRB, fotoPart)
                     .enqueue(getCallback("Álbum editado exitosamente"));

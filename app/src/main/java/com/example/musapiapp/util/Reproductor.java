@@ -32,7 +32,6 @@ public class Reproductor {
     private static int indiceActual = 0;
     private static float volumenActual = 1.0f;
     private static Context contexto;
-    //Registro de escuchas
     private static int segundosReproducidos = 0;
     private static boolean escuchaEsRegistrable = false;
     private static int segundosParaRegistrarEscucha = 10;
@@ -40,8 +39,6 @@ public class Reproductor {
 
     private static android.os.Handler handler;
     private static Runnable runnable;
-
-
 
     public interface ReproductorListener {
         void onReproduccionIniciada();
@@ -59,18 +56,14 @@ public class Reproductor {
         return null;
     }
 
-
     public static void inicializar(Context ctx, ReproductorListener l) {
         contexto = ctx;
         listener = l;
     }
 
-    // Métodos por implementar...
-
     public static void reproducirCancion(ArrayList<BusquedaCancionDTO> canciones, int indice, Context ctx) {
         contexto = ctx;
 
-        // Si el contexto también es un listener, lo usamos automáticamente
         if (ctx instanceof ReproductorListener) {
             listener = (ReproductorListener) ctx;
         }
@@ -86,7 +79,7 @@ public class Reproductor {
         new Thread(() -> {
             try {
                 if (mediaPlayer != null) {
-                    detener(); // 🔒 asegurar que no se solapen
+                    detener();
                 }
 
                 String token = SesionUsuario.getToken();
@@ -144,8 +137,6 @@ public class Reproductor {
             }
         }).start();
     }
-
-
 
     public static void pausarReanudar() {
         if (mediaPlayer == null) return;
@@ -266,7 +257,6 @@ public class Reproductor {
         );
 
         CancionServicio servicio = ApiCliente.getClient().create(CancionServicio.class);
-        //servicio.registrarEscucha(escucha);
         Call<JsonObject> llamada = servicio.registrarEscucha(escucha);
         Log.e("Reproductor", "se intenta la llamada");
         llamada.enqueue(new Callback<JsonObject>() {
@@ -287,6 +277,4 @@ public class Reproductor {
             }
         });
     }
-
-
 }

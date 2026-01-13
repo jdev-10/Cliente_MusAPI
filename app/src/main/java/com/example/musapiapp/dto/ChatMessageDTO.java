@@ -4,10 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Equivalente en Android de ClienteMusAPI.DTOs.ChatMessageDTO (WPF),
- * implementando Parcelable para poder enviarlo por Intents.
- */
 public class ChatMessageDTO implements Parcelable {
 
     @SerializedName("nombreUsuario")
@@ -17,19 +13,15 @@ public class ChatMessageDTO implements Parcelable {
     private String mensaje;
 
     @SerializedName("idPerfilArtista")
-    private Integer idPerfilArtista;  // Nullable
+    private Integer idPerfilArtista;
 
-    // Constructor vacío para Gson
     public ChatMessageDTO() { }
 
-    // Constructor con todos los campos
     public ChatMessageDTO(String nombreUsuario, String mensaje, Integer idPerfilArtista) {
         this.nombreUsuario = nombreUsuario;
         this.mensaje = mensaje;
         this.idPerfilArtista = idPerfilArtista;
     }
-
-    // —— Parcelable implementation ——
 
     protected ChatMessageDTO(Parcel in) {
         nombreUsuario   = in.readString();
@@ -59,8 +51,6 @@ public class ChatMessageDTO implements Parcelable {
             return new ChatMessageDTO[size];
         }
     };
-
-    // —— Getters & Setters ——
 
     public String getNombreUsuario() {
         return nombreUsuario;

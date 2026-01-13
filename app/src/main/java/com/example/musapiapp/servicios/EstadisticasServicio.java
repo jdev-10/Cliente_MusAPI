@@ -21,7 +21,6 @@ public interface EstadisticasServicio {
             @Query("tipoContenido") String tipoContenido
     );
 
-
     @GET("estadisticas/personales")
     Call<RespuestaApi<EstadisticasPersonalesDTO>> obtenerEstadisticasPersonales(
             @Query("idUsuario") int idUsuario,

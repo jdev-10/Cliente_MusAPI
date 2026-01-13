@@ -74,8 +74,6 @@ public class SubirContenidoActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                         if (!response.isSuccessful() || response.body() == null) {
-                            // Opcional: No mostrar error si simplemente no hay pendientes
-                            // Toast.makeText(SubirContenidoActivity.this, "Error al cargar álbumes pendientes", Toast.LENGTH_SHORT).show();
                             return;
                         }
 

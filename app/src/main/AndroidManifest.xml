@@ -66,9 +66,6 @@
             android:name=".activities.contenido.AlbumDetalleActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.contenido.AlbumDetalle"
-            android:exported="false" />
-        <activity
             android:name=".activities.contenido.ListaDetalleActivity"
             android:exported="false" />
         <activity
@@ -82,9 +79,6 @@
             android:exported="false" />
         <activity
             android:name=".activities.perfiles.PerfilArtistaActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.VentanaPrincipal"
             android:exported="false" />
         <activity
             android:name=".activities.menu.MenuPrincipalActivity"

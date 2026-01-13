@@ -122,7 +122,7 @@ public class AlbumDetalleActivity extends AppCompatActivity {
         btnPublicar.setVisibility(View.VISIBLE);
         btnPublicar.setOnClickListener(v -> publicarAlbum());
 
-        cargarCanciones(null); // desde servicio
+        cargarCanciones(null);
     }
 
     private void publicarAlbum() {
@@ -181,7 +181,6 @@ public class AlbumDetalleActivity extends AppCompatActivity {
         adapter.setListaCanciones(canciones);
         rvCanciones.setAdapter(adapter);
 
-        // Calcular duración total
         long totalSegundos = 0;
         for (BusquedaCancionDTO c : canciones) {
             try {
@@ -196,7 +195,6 @@ public class AlbumDetalleActivity extends AppCompatActivity {
         long m = (totalSegundos % 3600) / 60;
         long s = totalSegundos % 60;
         String duracion = String.format("%02d:%02d:%02d", h, m, s);
-        // Si tienes un TextView: txtDuracion.setText(duracion);
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -235,7 +233,7 @@ public class AlbumDetalleActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if (albumPendiente != null) {
-            cargarCanciones(null); // recargar si estamos en álbum pendiente
+            cargarCanciones(null);
         }
         if (reproductorHelper != null) {
             reproductorHelper.refrescarEstadoActual();
